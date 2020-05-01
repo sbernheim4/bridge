@@ -8,10 +8,10 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 // Navbar should appear on every page and so should not be lazy loaded
-import Navbar from "../Navbar/Navbar.tsx";
+import Navbar from "../Navbar/Navbar";
 
 // Import lazy loaded route components
-import { Home, Subpage, ErrorPage } from './LazyLoadRoutes.tsx';
+import { Home, Subpage, ErrorPage } from './LazyLoadRoutes';
 
 class Routes extends Component {
 	constructor(props: Readonly<{}>) {

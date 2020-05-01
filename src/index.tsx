@@ -10,7 +10,7 @@ import { BrowserRouter } from 'react-router-dom'
 import "./styles/reset.css";
 
 /* App is the entry point to the React code.*/
-import Routes from './Routes/index.tsx';
+import Routes from './Routes/index';
 
 ReactDOM.render(
 	<BrowserRouter basename="/">

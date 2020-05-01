@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Card } from './Card.tsx';
+import { Card } from './Card';
 import { ICard } from './card.types';
 
 import './cardContainer.scss';

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { HandRenderer } from './../../Cards/HandRenderer.tsx';
+import { HandRenderer } from './../../Cards/HandRenderer';
 
 import './home.css';
 
