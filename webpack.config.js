@@ -57,7 +57,7 @@ const clientConfig = {
 	mode: process.env.NODE_ENV || 'development',
 
 	resolve: {
-		extensions: ['*', '.js', 'jsx', 'ts','tsx','.css', '.scss', '.sass']
+		extensions: ['.js', '.jsx', '.ts','.tsx','.css', '.scss', '.sass']
 	},
 
 	devServer: {
