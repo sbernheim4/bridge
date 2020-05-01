@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CardContainer } from './CardContainer';
+import { CardContainer } from './CardContainer.tsx';
 import { ICard } from './card.types';
 
 export function HandRenderer() {

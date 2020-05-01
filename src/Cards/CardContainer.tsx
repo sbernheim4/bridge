@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Card } from './Card';
+import { Card } from './Card.tsx';
 import { ICard } from './card.types';
 
 import './cardContainer.scss';
@@ -68,8 +68,8 @@ export function CardContainer(props: { cards: ICard[] }) {
 			<div className='card-container__hand'>
 				{cardsSplitBySuit.map((subCards, index) => {
 					return (
-						<div className='card-container__hand__suit'>
-							<span className={suits[index].suit}>
+						<div key={index} className='card-container__hand__suit'>
+							<span className={suits[index].suit.toLowerCase()}>
 								{suits[index].symbol}
 							</span>
 							{subCards.map((card, index) => <Card key={index} card={card} />)}
