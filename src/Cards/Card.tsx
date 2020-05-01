@@ -9,21 +9,21 @@ interface ICard {
 
 export function Card (props: { card: ICard }) {
 
-	const { value, suit } = props.card;
+	const { value } = props.card;
 
 	let displayValue;
 	switch (value) {
 		case '11':
-			displayValue = 'Jack';
+			displayValue = 'J';
 			break;
 		case '12':
-			displayValue = 'Queen';
+			displayValue = 'Q';
 			break;
 		case '13':
-			displayValue = 'King';
+			displayValue = 'K';
 			break;
 		case '14':
-			displayValue = 'Ace';
+			displayValue = 'A';
 			break;
 		default:
 			displayValue = value;
@@ -31,7 +31,7 @@ export function Card (props: { card: ICard }) {
 	}
 
 	return (
-		<p className='card'>{suit}: {displayValue}</p>
+		<p className='card'>{displayValue}</p>
 	)
 
 }

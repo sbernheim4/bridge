@@ -41,10 +41,33 @@ export default function CardContainer(props: { cards: ICard[] }) {
 		}
 	}, 0)
 
+	const suits = ['Spades', 'Hearts', 'Diamonds', 'Clubs'];
+
+	const bar: ICard[][]= [];
+
+	suits.forEach(suit => {
+		const initialValue: ICard[] = [];
+		const foo = sortedCards.reduce((acc, curr) => {
+			if (curr.suit === suit) {
+				return [...acc, curr]
+			} else {
+				return acc;
+			}
+		}, initialValue);
+
+		bar.push(foo);
+
+	});
+
 	return (
 		<div className='card-container'>
-		<p>You have {highCardPoints} HCP</p>
-		{sortedCards.map((card, index) => <Card key={index} card={card} />)}
+			<h4>You have <span>{highCardPoints}</span> HCP</h4>
+			<div className='card-container__hand'>
+			<div className='card-container__hand__suit'><span className='spades'>♠️ </span> {bar[0].map((card, index) => <Card key={index} card={card} />)}</div>
+			<div className='card-container__hand__suit'><span className='hearts'>♥️ </span> {bar[1].map((card, index) => <Card key={index} card={card} />)}</div>
+			<div className='card-container__hand__suit'><span className='diamonds'>♦️ </span> {bar[2].map((card, index) => <Card key={index} card={card} />)}</div>
+			<div className='card-container__hand__suit'><span className='clubs'>♣️ </span> {bar[3].map((card, index) => <Card key={index} card={card} />)}</div>
+			</div>
 		</div>
 	)
 
