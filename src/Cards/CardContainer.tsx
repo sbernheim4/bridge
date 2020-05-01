@@ -37,15 +37,21 @@ export function CardContainer(props: { cards: ICard[] }) {
 		}
 	}, 0)
 
-	const suits = ['Spades', 'Hearts', 'Diamonds', 'Clubs'];
-	const symbols = ['♠️ ', '♥️ ', '♦️ ', '♣️'];
+	const suits = [
+		{ suit: 'Spades', symbol: '♠️ ' },
+		{ suit: 'Hearts', symbol: '♥️ ' },
+		{ suit: 'Diamonds', symbol: '♦️ '},
+		{ suit: 'Clubs', symbol: '♣️' },
+	];
 
 	const cardsSplitBySuit: ICard[][] = [];
 
-	suits.forEach(suit => {
+	suits.forEach(val => {
+
 		const currentSuit: ICard[] = [];
+
 		const foo = sortedCards.reduce((acc, curr) => {
-			if (curr.suit === suit) {
+			if (curr.suit === val.suit) {
 				return [...acc, curr]
 			} else {
 				return acc;
@@ -63,8 +69,8 @@ export function CardContainer(props: { cards: ICard[] }) {
 				{cardsSplitBySuit.map((subCards, index) => {
 					return (
 						<div className='card-container__hand__suit'>
-							<span className={suits[index]}>
-								{symbols[index]}
+							<span className={suits[index].suit}>
+								{suits[index].symbol}
 							</span>
 							{subCards.map((card, index) => <Card key={index} card={card} />)}
 						</div>

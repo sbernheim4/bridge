@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { CardContainer } from './CardContainer';
-import { ICard } from './card';
+import { ICard } from './card.types';
 
-function HandRenderer() {
+export function HandRenderer() {
 
 	function generateDeckOfCards() {
 		const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14']
@@ -72,8 +72,4 @@ function HandRenderer() {
 		</div>
 	)
 
-}
-
-export {
-	HandRenderer
 }
