@@ -4,17 +4,16 @@
 		"paths": { "*": ["node_modules"] },
 		"target": "es2016",
 		"module": "commonjs",
-        "jsx": "react",
+		"jsx": "react",
 		"moduleResolution": "node",
-        "noImplicitReturns": true,
-        "noImplicitAny": true,
+		"noImplicitReturns": true,
+		"noImplicitAny": true,
 		"esModuleInterop": true,
 		"noUnusedParameters": true,
 		"allowSyntheticDefaultImports": true
 	},
-    "include": [
-        "./src/**/*",
-        "./server/**/*"
-    ]
+	"include": [
+		"./src/**/*.tsx",
+		"./server/**/*"
+	]
 }
-

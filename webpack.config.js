@@ -17,7 +17,7 @@ const port = envKeys['process.env.PORT'];
 
 const clientConfig = {
 	entry: {
-		main: "./src/index.jsx", // Entry point of where webpack should start from
+		main: "./src/index.tsx", // Entry point of where webpack should start from
 	},
 	output: {
 		// output build file to /public folder and call the file bundle.js
@@ -35,7 +35,7 @@ const clientConfig = {
 			{
 				test: /\.tsx$/,
 				exclude: /node_modules/,
-				use: ['babel-loader', 'eslint-loader', 'ts-loader']
+                use: ['babel-loader', 'ts-loader']
 			},
 			// use sass-loader, css-loader, and style-loader for all scss files
 			// sass-loader - converts scss to css

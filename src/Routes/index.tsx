@@ -8,13 +8,13 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 // Navbar should appear on every page and so should not be lazy loaded
-import Navbar from "../Navbar/Navbar.jsx";
+import Navbar from "../Navbar/Navbar.tsx";
 
 // Import lazy loaded route components
-import { Home, Subpage, ErrorPage } from './LazyLoadRoutes.jsx';
+import { Home, Subpage, ErrorPage } from './LazyLoadRoutes.tsx';
 
 class Routes extends Component {
-	constructor(props) {
+	constructor(props: Readonly<{}>) {
 		super(props);
 		this.state = {
 
@@ -28,7 +28,7 @@ class Routes extends Component {
 			<div>
 				<Navbar />
 
-				<Switch className="main">
+				<Switch>
 					<Route exact path='/' component={Home}/>
 					<Route path='/subpage' component={Subpage}/>
 					<Route component={ErrorPage}/> {/* This route is run when no matches are found - It's your 404 fallbback */}

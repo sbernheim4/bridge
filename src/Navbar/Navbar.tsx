@@ -5,7 +5,7 @@ import "./navbar.css";
 
 class Navbar extends Component {
 
-	constructor(props) {
+	constructor(props: Readonly<{}>) {
 		super(props);
 	}
 

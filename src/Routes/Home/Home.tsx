@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import './home.css';
 
 class Home extends Component {
-	constructor(props) {
+	constructor(props: Readonly<{}>) {
 		super(props);
 
 		this.state = {

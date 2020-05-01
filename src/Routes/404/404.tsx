@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 class ErrorPage extends Component {
-	constructor(props) {
+	constructor(props: Readonly<{}>) {
 		super(props);
 
 		this.state = {
