@@ -19,6 +19,7 @@ const clientConfig = {
 	entry: {
 		main: "./src/index.tsx", // Entry point of where webpack should start from
 	},
+	devtool: "source-map",
 	output: {
 		// output build file to /public folder and call the file bundle.js
 		path: __dirname + "/public",
