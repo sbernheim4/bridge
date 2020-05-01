@@ -1,11 +1,8 @@
 import React from "react";
 
-import './card.scss';
+import { ICard } from './card.types';
 
-interface ICard {
-	value: string;
-	suit: string;
-}
+import './card.scss';
 
 export function Card (props: { card: ICard }) {
 

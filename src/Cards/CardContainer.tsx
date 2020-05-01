@@ -1,15 +1,11 @@
 import React from 'react';
 
-import { Card } from './Card.tsx';
+import { Card } from './Card';
+import { ICard } from './card.types';
 
 import './cardContainer.scss';
 
-interface ICard {
-	value: string;
-	suit: string;
-}
-
-export default function CardContainer(props: { cards: ICard[] }) {
+export function CardContainer(props: { cards: ICard[] }) {
 	const { cards } = props;
 
 	function sortCards(cardOne: ICard, cardTwo: ICard) {
@@ -23,7 +19,7 @@ export default function CardContainer(props: { cards: ICard[] }) {
 			return 1;
 		} else if (cardTwo.suit === 'Hearts' && cardOne.suit !== 'Spades') {
 			return 1;
-		} else if (cardTwo.suit === 'Diamonds' && cardOne.suit !=='Spades' && cardOne.suit !== 'Hearts') {
+		} else if (cardTwo.suit === 'Diamonds' && cardOne.suit !== 'Spades' && cardOne.suit !== 'Hearts') {
 			return 1;
 		} else {
 			return -1;
@@ -35,27 +31,28 @@ export default function CardContainer(props: { cards: ICard[] }) {
 	const highCardPoints = sortedCards.reduce((acc, card) => {
 		const number = parseInt(card.value);
 		if (number > 10) {
-			return  acc += number - 10;
+			return acc += number - 10;
 		} else {
 			return acc;
 		}
 	}, 0)
 
 	const suits = ['Spades', 'Hearts', 'Diamonds', 'Clubs'];
+	const symbols = ['♠️ ', '♥️ ', '♦️ ', '♣️'];
 
-	const bar: ICard[][]= [];
+	const cardsSplitBySuit: ICard[][] = [];
 
 	suits.forEach(suit => {
-		const initialValue: ICard[] = [];
+		const currentSuit: ICard[] = [];
 		const foo = sortedCards.reduce((acc, curr) => {
 			if (curr.suit === suit) {
 				return [...acc, curr]
 			} else {
 				return acc;
 			}
-		}, initialValue);
+		}, currentSuit);
 
-		bar.push(foo);
+		cardsSplitBySuit.push(foo);
 
 	});
 
@@ -63,10 +60,16 @@ export default function CardContainer(props: { cards: ICard[] }) {
 		<div className='card-container'>
 			<h4>You have <span>{highCardPoints}</span> HCP</h4>
 			<div className='card-container__hand'>
-			<div className='card-container__hand__suit'><span className='spades'>♠️ </span> {bar[0].map((card, index) => <Card key={index} card={card} />)}</div>
-			<div className='card-container__hand__suit'><span className='hearts'>♥️ </span> {bar[1].map((card, index) => <Card key={index} card={card} />)}</div>
-			<div className='card-container__hand__suit'><span className='diamonds'>♦️ </span> {bar[2].map((card, index) => <Card key={index} card={card} />)}</div>
-			<div className='card-container__hand__suit'><span className='clubs'>♣️ </span> {bar[3].map((card, index) => <Card key={index} card={card} />)}</div>
+				{cardsSplitBySuit.map((subCards, index) => {
+					return (
+						<div className='card-container__hand__suit'>
+							<span className={suits[index]}>
+								{symbols[index]}
+							</span>
+							{subCards.map((card, index) => <Card key={index} card={card} />)}
+						</div>
+					)
+				})}
 			</div>
 		</div>
 	)
