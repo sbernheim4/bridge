@@ -11,6 +11,10 @@ export function BiddingSystem(props: { currentBid: Bid; numberOfPasses: number }
 
 	const [currBid, setCurrBid] = useState(props.currentBid || null);
 
+	const double: Bid = {
+		suitIndex: 99,
+		level: 99
+	};
 	const suits = ['No Trump', 'Spades', 'Hearts', 'Diamonds', 'Clubs'];
 	const levels = [1, 2, 3, 4, 5, 6, 7];
 
@@ -41,7 +45,7 @@ export function BiddingSystem(props: { currentBid: Bid; numberOfPasses: number }
 		} else {
 			// Level is the same
 
-			if (newSuitIndex > previousSuitIndex) {
+			if (newSuitIndex < previousSuitIndex) {
 
 				return true;
 
@@ -82,83 +86,27 @@ export function BiddingSystem(props: { currentBid: Bid; numberOfPasses: number }
 
 	}
 
+	function getValidBidsTwo(currentBid: Bid) {
 
-	function getValidBids(currentBid: Bid) {
-		if (currentBid === null) {
+		let allBids: Bid[] = [];
 
-			let validBids: Bid[] = [];
-
-			for (const level of levels) {
-				for (const suit of suits) {
-					validBids.push({
-						level: level,
-						suitIndex: suits.indexOf(suit)
-					})
-				}
+		for (const level of levels) {
+			for (const suit of suits) {
+				allBids.push({
+					level: level,
+					suitIndex: suits.indexOf(suit)
+				})
 			}
-
-			return validBids;
-
-		} else {
-
-			const validSuitsForCurrentLevel = getValidSuitsForCurrentLevel(currentBid); // tied to
-			const validSuitsForHigherLevel = getValidSuitsForHigherLevel();
-
-			const bidsForCurrentLevel = validSuitsForCurrentLevel.map(suit => {
-				let levelF;
-
-				if (currentBid !== null) {
-					levelF = typeof currentBid.level === 'number' ?
-						currentBid.level :
-						1
-				} else {
-					levelF = currentBid.level
-				}
-
-				return {
-					suitIndex: suits.indexOf(suit),
-					level: levelF
-				}
-			});
-
-			const bidsForHigherLevel: Bid[] = [];
-
-			const currentLevel = currentBid !== null && typeof currentBid.level === 'number' ?
-				currentBid.level :
-				1;
-
-			for (const level of levels.slice(currentLevel)) {
-				for (const suit of validSuitsForHigherLevel) {
-					bidsForHigherLevel.push({
-						level: level,
-						suitIndex: suits.indexOf(suit)
-					})
-				}
-			}
-
-			return [...bidsForCurrentLevel, ...bidsForHigherLevel];
-
 		}
 
-	}
+		const validBids = allBids.filter(bid => isValidBid(currentBid, bid));
 
-	function getValidSuitsForCurrentLevel(currentBid: Bid) {
+		return [...validBids, double];
 
-		if (currentBid === null) {
-			return suits;
-		} else {
-			const { suitIndex } = currentBid;
+    }
 
-			return suits.slice(0, suitIndex);
-		}
 
-	}
-
-	function getValidSuitsForHigherLevel() {
-		return suits;
-	}
-
-	const validBids = getValidBids(props.currentBid);
+	const validBids = getValidBidsTwo(props.currentBid);
 	const displayValidBids: DisplayBid[] = validBids.map(bid => {
 		return {
 			suit: suits[bid.suitIndex],
