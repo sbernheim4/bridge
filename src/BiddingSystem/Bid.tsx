@@ -26,9 +26,11 @@ export function BidView(props: foo) {
         // props.placeNewBid(props.bid.suit, level);
     }
 
+	const level = props.bid.level === 99 ? '' : props.bid.level;
+
 	return (
 		<div className='bid'>
-			<p className='bid__info' onClick={handleClick}>- {props.bid.level} {props.bid.suit}</p>
+			<p className='bid__info' onClick={handleClick}>- {level} {props.bid.suit}</p>
 		</div>
 	)
 

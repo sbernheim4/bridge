@@ -11,17 +11,18 @@ export function BiddingSystem(props: { currentBid: Bid; numberOfPasses: number }
 
 	const [currBid, setCurrBid] = useState(props.currentBid || null);
 
-	const double: Bid = { suitIndex: 99, level: 99 };
+	const double: DisplayBid = { suit: 'Double', level: 99 };
 	const suits = ['No Trump', 'Spades', 'Hearts', 'Diamonds', 'Clubs'];
 	const allBids = getAllBids();
 	const validBids = getValidBids(props.currentBid);
 
-	const displayableValidBids: DisplayBid[] = validBids.map(bid => {
+	let displayableValidBids: DisplayBid[] = validBids.map(bid => {
 		return {
 			suit: suits[bid.suitIndex],
 			level: bid.level
 		};
 	});
+	displayableValidBids.push(double);
 
 	function getAllBids() {
 		let allBids: Bid[] = [];
@@ -121,7 +122,7 @@ export function BiddingSystem(props: { currentBid: Bid; numberOfPasses: number }
 	function getValidBids(currentBid: Bid) {
 		const validBids = allBids.filter(bid => isValidBid(currentBid, bid));
 
-		return [...validBids, double];
+		return validBids;
     }
 
 	return (
