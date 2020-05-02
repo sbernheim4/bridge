@@ -11,12 +11,8 @@ export function BiddingSystem(props: { currentBid: Bid; numberOfPasses: number }
 
 	const [currBid, setCurrBid] = useState(props.currentBid || null);
 
-	const double: Bid = {
-		suitIndex: 99,
-		level: 99
-	};
+	const double: Bid = { suitIndex: 99, level: 99 };
 	const suits = ['No Trump', 'Spades', 'Hearts', 'Diamonds', 'Clubs'];
-	const levels = [1, 2, 3, 4, 5, 6, 7];
 	const allBids = getAllBids();
 	const validBids = getValidBids(props.currentBid);
 
@@ -30,12 +26,16 @@ export function BiddingSystem(props: { currentBid: Bid; numberOfPasses: number }
 	function getAllBids() {
 		let allBids: Bid[] = [];
 
+		const levels = [1, 2, 3, 4, 5, 6, 7];
+
 		for (const level of levels) {
 			for (const suit of suits) {
+
 				allBids.push({
 					level: level,
 					suitIndex: suits.indexOf(suit)
-				})
+				});
+
 			}
 		}
 
