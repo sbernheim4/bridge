@@ -17,6 +17,31 @@ export function BiddingSystem(props: { currentBid: Bid; numberOfPasses: number }
 	};
 	const suits = ['No Trump', 'Spades', 'Hearts', 'Diamonds', 'Clubs'];
 	const levels = [1, 2, 3, 4, 5, 6, 7];
+	const allBids = getAllBids();
+	const validBids = getValidBids(props.currentBid);
+
+	const displayableValidBids: DisplayBid[] = validBids.map(bid => {
+		return {
+			suit: suits[bid.suitIndex],
+			level: bid.level
+		};
+	});
+
+	function getAllBids() {
+		let allBids: Bid[] = [];
+
+		for (const level of levels) {
+			for (const suit of suits) {
+				allBids.push({
+					level: level,
+					suitIndex: suits.indexOf(suit)
+				})
+			}
+		}
+
+		return allBids;
+
+	}
 
 	function isValidBid(previousBid: Bid, newBid: Bid) {
 		const {
@@ -71,10 +96,8 @@ export function BiddingSystem(props: { currentBid: Bid; numberOfPasses: number }
 
 	function placeNewBid(newSuit: string, newLevel: number) {
 
-		const suitIndex = suits.indexOf(newSuit);
-
 		const newBid: Bid = {
-			suitIndex,
+			suitIndex: newSuit === 'Double' ? 99 : suits.indexOf(newSuit),
 			level: newLevel
 		}
 
@@ -83,9 +106,8 @@ export function BiddingSystem(props: { currentBid: Bid; numberOfPasses: number }
 			// throw an error
 		}
 
-        const isValid = props.currentBid === null ?
-            true :
-            isValidBid(props.currentBid, newBid);
+		// Note: This will always be true as user can only select valid bids
+        const isValid = isValidBid(props.currentBid, newBid);
 
 		if (isValid) {
 			// TODO: Fire new bid to the server
@@ -96,33 +118,11 @@ export function BiddingSystem(props: { currentBid: Bid; numberOfPasses: number }
 
 	}
 
-	function getValidBidsTwo(currentBid: Bid) {
-
-		let allBids: Bid[] = [];
-
-		for (const level of levels) {
-			for (const suit of suits) {
-				allBids.push({
-					level: level,
-					suitIndex: suits.indexOf(suit)
-				})
-			}
-		}
-
+	function getValidBids(currentBid: Bid) {
 		const validBids = allBids.filter(bid => isValidBid(currentBid, bid));
 
 		return [...validBids, double];
-
     }
-
-
-	const validBids = getValidBidsTwo(props.currentBid);
-	const displayValidBids: DisplayBid[] = validBids.map(bid => {
-		return {
-			suit: suits[bid.suitIndex],
-			level: bid.level
-		};
-	});
 
 	return (
 		<div className='bidding-system'>
@@ -131,7 +131,7 @@ export function BiddingSystem(props: { currentBid: Bid; numberOfPasses: number }
 			</div>
 
 			<div className='bidding-system__available-bids'>
-				{displayValidBids.map((bid, index) => <BidView key={index} placeNewBid={placeNewBid} bid={bid}/>)}
+				{displayableValidBids.map((bid, index) => <BidView key={index} placeNewBid={placeNewBid} bid={bid}/>)}
 			</div>
 		</div>
 	)
