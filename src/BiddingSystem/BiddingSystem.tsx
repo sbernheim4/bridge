@@ -34,6 +34,16 @@ export function BiddingSystem(props: { currentBid: Bid; numberOfPasses: number }
 			return true;
 		}
 
+		// No previous bids have been made yet
+		if(previousBid === null) {
+			return true;
+		}
+
+		// Allow a bid of Double at any time
+		if (newSuitIndex === 99) {
+			return true;
+		}
+
 		if (newLevel > previousLevel) {
 
 			return true;
