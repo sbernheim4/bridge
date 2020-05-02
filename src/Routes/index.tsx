@@ -14,7 +14,7 @@ import Navbar from "../Navbar/Navbar";
 import { Home, Subpage, ErrorPage } from './LazyLoadRoutes';
 
 class Routes extends Component {
-	constructor(props: Readonly<{}>) {
+	constructor(props: {}) {
 		super(props);
 		this.state = {
 

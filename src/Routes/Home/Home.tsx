@@ -5,7 +5,7 @@ import { HandRenderer } from './../../Cards/HandRenderer';
 import './home.css';
 
 class Home extends Component {
-	constructor(props: Readonly<{}>) {
+	constructor(props: {}) {
 		super(props);
 
 		this.state = {
