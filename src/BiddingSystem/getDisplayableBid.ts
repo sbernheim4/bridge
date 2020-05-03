@@ -15,7 +15,13 @@ export function getDisplayableBid(bid: Bid) {
 		return 'Double';
 	} else if (bid.level === 100) {
 		return 'Pass';
-	}
+	} else if (bid.level === 1 && suits[bid.suitIndex].slice(-1) === 's') {
 
-	return `${bid.level} ${suits[bid.suitIndex]}`
+		const suit = suits[bid.suitIndex];
+
+		return `${bid.level} ${suit.slice(0, suit.length - 1)}`
+
+	} else {
+		return `${bid.level} ${suits[bid.suitIndex]}`
+	}
 }

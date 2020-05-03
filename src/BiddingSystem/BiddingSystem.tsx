@@ -44,16 +44,16 @@ export function BiddingSystem(props: { currentBid: Bid; numberOfPasses: number, 
 
 	}
 
-    function containsThreeConsecutivePasses(bids: Bid[]) {
+	function containsThreeConsecutivePasses(bids: Bid[]) {
 
 		const mostRecentThreeBids = bids.slice(-3);
 		const threeConsecutivePasses = mostRecentThreeBids.reduce((acc, current) => {
 			return acc && current.level === 100;
 		}, true)
 
-        return threeConsecutivePasses;
+		return threeConsecutivePasses;
 
-    }
+	}
 
 	function placeNewBid(bid: Bid) {
 
@@ -119,7 +119,7 @@ export function BiddingSystem(props: { currentBid: Bid; numberOfPasses: number, 
 		const updatedValidBids = validBids.filter(newBid => filterValidBids(newBid));
 
 		return updatedValidBids;
-    }
+	}
 
 	function getMostRecentSuitBid(stackOfBids: Bid[]) {
 		return [...stackOfBids].reverse().find(bid => bid.level < 99)
