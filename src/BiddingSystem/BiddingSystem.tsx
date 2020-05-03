@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 
 import {
 	Bid,
+	BiddingSystemProps
 } from './biddingTypes.d'
 import { getDisplayableBid } from './getDisplayableBid';
 import { BidView } from './Bid';
 
 import './biddingSystem.scss';
 
-export function BiddingSystem(props: { currentBid: Bid; numberOfPasses: number, previousBids: Bid[] }) {
+export function BiddingSystem(props: BiddingSystemProps) {
 
 	const pass: Bid = { suitIndex: 100, level: 100 };
 	const double: Bid = { suitIndex: 99, level: 99 };
@@ -122,7 +123,11 @@ export function BiddingSystem(props: { currentBid: Bid; numberOfPasses: number, 
 	}
 
 	function getMostRecentSuitBid(stackOfBids: Bid[]) {
-		return [...stackOfBids].reverse().find(bid => bid.level < 99)
+		const val = stackOfBids
+			.reverse()
+			.filter(bid => bid.level < 99)
+
+		return val.pop();
 	}
 
 	return (

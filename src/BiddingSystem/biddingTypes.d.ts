@@ -13,3 +13,7 @@ export interface BidViewProps {
 	bid: Bid;
 }
 
+export interface BiddingSystemProps {
+    currentBid: Bid;
+    previousBids: Bid[];
+}
