@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 
 import {
 	Bid,
-	BiddingSystemProps
+	BiddingSystemProps,
+	NullableBid
 } from './biddingTypes.d'
 import { getDisplayableBid } from './getDisplayableBid';
 import { BidView } from './Bid';
@@ -73,7 +74,7 @@ export function BiddingSystem(props: BiddingSystemProps) {
 
 	}
 
-	function getValidBids(previousBid: Bid, validBids: Bid[]) {
+	function getValidBids(previousBid: NullableBid, validBids: Bid[]) {
 		if (previousBid === null || previousBid.level >= 99 ) {
 			return validBids;
 		}

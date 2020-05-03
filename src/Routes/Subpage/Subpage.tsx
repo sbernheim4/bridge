@@ -16,7 +16,7 @@ class Subpage extends Component {
 
 		return (
 			<div className="subpage">
-				<BiddingSystem currentBid={currentBid} previousBids={[currentBid]}/>
+				<BiddingSystem currentBid={null} previousBids={[]}/>
 			</div>
 		);
 	}
