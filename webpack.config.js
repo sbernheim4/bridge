@@ -34,7 +34,7 @@ const clientConfig = {
 				use: ["babel-loader", "eslint-loader"]
 			},
 			{
-				test: /\.tsx$/,
+				test: /\.tsx?$/,
 				exclude: /node_modules/,
                 use: ['babel-loader', 'ts-loader']
 			},

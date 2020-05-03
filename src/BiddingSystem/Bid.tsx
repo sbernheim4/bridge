@@ -1,19 +1,18 @@
 import React from 'React'
 
 import {
-	DisplayBid
+	Bid
 } from './biddingTypes.d'
+import { getDisplayableBid } from './getDisplayableBid'
 
 import './bid.scss';
 
 interface BidViewProps {
-	placeNewBid: (bid: DisplayBid) => boolean;
-	bid: DisplayBid;
+	placeNewBid: (bid: Bid) => boolean;
+	bid: Bid;
 }
 
 export function BidView(props: BidViewProps) {
-
-	const level = props.bid.suit === 'Double' ? '' : props.bid.level;
 
 	function handleClick() {
 		console.log('clicked on', props.bid);
@@ -23,7 +22,7 @@ export function BidView(props: BidViewProps) {
 
 	return (
 		<div className='bid'>
-		<p className='bid__info' onClick={handleClick}>- {level} {props.bid.suit}</p>
+			<p className='bid__info' onClick={handleClick}>- {getDisplayableBid(props.bid)}</p>
 		</div>
 	)
 

@@ -9,13 +9,15 @@ class Subpage extends Component {
 	}
 
 	render() {
+
 		const currentBid: Bid = {
 			suitIndex: 2,
-			level: 2
+			level: 1,
 		}
+
 		return (
 			<div className="subpage">
-				<BiddingSystem numberOfPasses={0} currentBid={currentBid}/>
+				<BiddingSystem numberOfPasses={0} currentBid={currentBid} previousBids={[currentBid]}/>
 			</div>
 		);
 	}
