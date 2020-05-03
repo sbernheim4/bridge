@@ -1,17 +1,61 @@
 .bidding-system {
 
-	&__current-bid {
-
+	&__history-header {
+		margin: 30px 0 10px 0;
+		text-align: center;
 	}
 
 	&__bidding-history {
+		margin: 0 auto;
+		width: 400px;
+		height: 200px;
+        padding: 15px;
+		background-color: white;
+        border: 1px solid rgb(220, 220, 220);
+		border-radius: 10px;
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+		column-gap: 0px;
+		row-gap: 10px;
+		grid-template-areas: // stylelint-disable-line declaration-colon-space-after
+			"north east south west"
+			"bid bid bid bid"
+			"bid bid bid bid"
+			"bid bid bid bid"
+			"bid bid bid bid";
 
-		border: 1px solid black;
+		justify-items: center;
+		align-items: center;
 
+        &--header {
+            text-decoration: underline;
+        }
+	}
+
+	&__available-header {
+		margin-top: 30px;
+		text-align: center;
 	}
 
 	&__available-bids {
 
+		margin: 20px auto;
+		max-width: 500px;
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr 1fr;
+		grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+		column-gap: 0px;
+		row-gap: 10px;
+		grid-template-areas: // stylelint-disable-line declaration-colon-space-after
+		"north east south west"
+		"bid bid bid bid"
+		"bid bid bid bid"
+		"bid bid bid bid"
+		"bid bid bid bid";
+
+		justify-items: left;
+		align-items: center;
 	}
 
 }

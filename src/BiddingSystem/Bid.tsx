@@ -22,7 +22,7 @@ export function BidView(props: BidViewProps) {
 
 	return (
 		<div className='bid'>
-			<p className='bid__info' onClick={handleClick}>- {getDisplayableBid(props.bid)}</p>
+			<p className='bid__info' onClick={handleClick}>{getDisplayableBid(props.bid)}</p>
 		</div>
 	)
 

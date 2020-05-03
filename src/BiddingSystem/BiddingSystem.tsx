@@ -24,6 +24,7 @@ export function BiddingSystem(props: BiddingSystemProps) {
 
 	const [validBids, setValidBids] = useState(initialValidBids);
 	const [previousBids, setPreviousBids] = useState(props.previousBids || []);
+	const positions = ['North', 'East', 'South', 'West'];
 
 	function getAllBids() {
 		const suits = ['No Trump', 'Spades', 'Hearts', 'Diamonds', 'Clubs'];
@@ -129,16 +130,15 @@ export function BiddingSystem(props: BiddingSystemProps) {
 
 	return (
 		<div className='bidding-system'>
-			<div className='bidding-system__current-bid'>
-				<h1>{getDisplayableBid(getMostRecentSuitBid(previousBids))}</h1>
-			</div>
-
+            <h3 className='bidding-system__history-header'>Bids ({getDisplayableBid(getMostRecentSuitBid(previousBids))})</h3>
 			<div className='bidding-system__bidding-history'>
+				{positions.map((position, index) => <p className='bidding-system__bidding-history--header' key={index}>{position}</p>)}
 				{previousBids.map((bid, index) => {
 					return <p key={index}>{getDisplayableBid(bid)}</p>
 				})}
 			</div>
 
+            <h3 className='bidding-system__available-header'>Available Bids</h3>
 			<div className='bidding-system__available-bids'>
 				{validBids.map((bid, index) => {
 					return <BidView key={index} placeNewBid={placeNewBid} bid={bid}/>

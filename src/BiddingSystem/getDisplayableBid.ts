@@ -6,7 +6,7 @@ import {
 export function getDisplayableBid(bid: Bid | undefined) { // eslint-disable-line no-undefined
 
 	if (!bid) {
-		return 'No suited bids have been made yet';
+		return '';
 	}
 
 	const suits = ['No Trump', 'Spades', 'Hearts', 'Diamonds', 'Clubs'];

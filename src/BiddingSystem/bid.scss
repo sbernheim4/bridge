@@ -1,4 +1,7 @@
 .bid {
-	padding: 0 30px;
+	padding: 0 10px;
 
+	&:hover {
+		cursor: pointer;
+	}
 }
