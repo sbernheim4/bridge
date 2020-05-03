@@ -123,11 +123,7 @@ export function BiddingSystem(props: BiddingSystemProps) {
 	}
 
 	function getMostRecentSuitBid(stackOfBids: Bid[]) {
-		const val = stackOfBids
-			.reverse()
-			.filter(bid => bid.level < 99)
-
-		return val.pop();
+		return [...stackOfBids].reverse().find(bid => bid.level < 99);
 	}
 
 	return (
