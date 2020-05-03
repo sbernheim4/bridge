@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 import {
-	DisplayBid,
 	Bid,
 } from './biddingTypes.d'
 import { getDisplayableBid } from './getDisplayableBid';
@@ -22,7 +21,6 @@ export function BiddingSystem(props: { currentBid: Bid; numberOfPasses: number, 
 		.reverse()
 		.concat(double, pass)
 
-	const [mostRecentBid, setMostRecentBid] = useState(props.currentBid);
 	const [validBids, setValidBids] = useState(initialValidBids);
 	const [previousBids, setPreviousBids] = useState(props.previousBids || []);
 
@@ -85,7 +83,6 @@ export function BiddingSystem(props: { currentBid: Bid; numberOfPasses: number, 
 	}
 
 	function placeNewBid(bid: Bid) {
-		setMostRecentBid(bid);
 
 		const updatedPreviousBidsArray = [...previousBids, bid];
 		setPreviousBids(updatedPreviousBidsArray);
