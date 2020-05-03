@@ -117,10 +117,14 @@ export function BiddingSystem(props: { currentBid: Bid; numberOfPasses: number, 
 		return updatedValidBids;
     }
 
+	function getMostRecentSuitBid(stackOfBids: Bid[]) {
+		return [...stackOfBids].reverse().find(bid => bid.level < 99)
+	}
+
 	return (
 		<div className='bidding-system'>
 			<div className='bidding-system__current-bid'>
-				<h1>{getDisplayableBid(mostRecentBid)}</h1>
+				<h1>{getDisplayableBid(getMostRecentSuitBid(previousBids))}</h1>
 			</div>
 
 			<div className='bidding-system__bidding-history'>
@@ -135,6 +139,5 @@ export function BiddingSystem(props: { currentBid: Bid; numberOfPasses: number, 
 				})}
 			</div>
 		</div>
-	)
-
+	);
 }

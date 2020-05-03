@@ -9,7 +9,6 @@ class Subpage extends Component {
 	}
 
 	render() {
-
 		const currentBid: Bid = {
 			suitIndex: 2,
 			level: 1,
