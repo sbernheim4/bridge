@@ -2,5 +2,9 @@
 	"extends": "./../tsconfig.json",
 	"compilerOptions": {
         "strictNullChecks": true
-	}
+	},
+    "include": [
+		"./**/*.tsx",
+		"./**/*.ts"
+    ]
 }

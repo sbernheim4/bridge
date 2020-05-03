@@ -13,10 +13,5 @@
 		"esModuleInterop": true,
 		"noUnusedParameters": true,
 		"allowSyntheticDefaultImports": true
-	},
-	"include": [
-		"./src/**/*.tsx",
-		"./src/**/*.ts",
-		"./server/**/*"
-	]
+	}
 }
