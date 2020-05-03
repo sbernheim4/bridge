@@ -25,9 +25,9 @@ export function BiddingSystem(props: { currentBid: Bid; numberOfPasses: number, 
 
 	function getAllBids() {
 		const suits = ['No Trump', 'Spades', 'Hearts', 'Diamonds', 'Clubs'];
-		let allBids: Bid[] = [];
-
 		const levels = [1, 2, 3, 4, 5, 6, 7];
+
+		let allBids: Bid[] = [];
 
 		for (const level of levels) {
 			for (const suit of suits) {
