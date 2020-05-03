@@ -6,12 +6,14 @@ const WebpackBar = require('webpackbar');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const nodeExternals = require('webpack-node-externals');
+const StyleLintPlugin = require('stylelint-webpack-plugin');
 
 const env = dotenv.config().parsed;
 const envKeys = Object.keys(env).reduce((prev, next) => {
 	prev[`process.env.${next}`] = JSON.stringify(env[next]);
 	return prev;
 }, {});
+
 
 const clientConfig = {
 	entry: {
@@ -74,7 +76,11 @@ const clientConfig = {
 			alwaysWriteToDisk: true
 		}),
 
-		// Optimizes css by minifying it and removing comments
+		new StyleLintPlugin({
+			configFile: './.stylelintrc',
+			files: './src/**/*.scss'
+		}),
+
 		new OptimizeCssAssetsPlugin({
 			cssProcessor: nano,
 			cssProcessorOptions: {discardComments: {removeAll: true} },

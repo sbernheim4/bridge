@@ -7,7 +7,7 @@
 		"color-no-invalid-hex": true,
 		"declaration-colon-space-after": "always",
 		"max-empty-lines": 2,
-		"unit-whitelist": ["em", "%", "px", "vw", "vh", "s"],
+		"unit-whitelist": ["em", "%", "px", "vw", "vh", "s", "fr"],
 		"order/properties-order": [
 			"position",
 			"margin",
