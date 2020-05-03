@@ -12,9 +12,8 @@ export function BiddingSystem(props: { currentBid: Bid; numberOfPasses: number, 
 
 	const pass: Bid = { suitIndex: 100, level: 100 };
 	const double: Bid = { suitIndex: 99, level: 99 };
-	const suits = ['No Trump', 'Spades', 'Hearts', 'Diamonds', 'Clubs'];
-	const allBids = getAllBids();
-	const initialValidBids = getValidBids(props.currentBid, allBids)
+
+	const initialValidBids = getValidBids(props.currentBid, getAllBids())
 		.sort((bidOne, bidTwo) => {
 			return bidTwo.level - bidOne.level;
 		})
@@ -25,6 +24,7 @@ export function BiddingSystem(props: { currentBid: Bid; numberOfPasses: number, 
 	const [previousBids, setPreviousBids] = useState(props.previousBids || []);
 
 	function getAllBids() {
+		const suits = ['No Trump', 'Spades', 'Hearts', 'Diamonds', 'Clubs'];
 		let allBids: Bid[] = [];
 
 		const levels = [1, 2, 3, 4, 5, 6, 7];
@@ -44,55 +44,23 @@ export function BiddingSystem(props: { currentBid: Bid; numberOfPasses: number, 
 
 	}
 
-	function isCurrentBidValid(previousBid: Bid, currentBid: Bid) {
-		let {
-			suitIndex: previousSuitIndex,
-			level: previousLevel
-		} = previousBid;
+    function containsThreeConsecutivePasses(bids: Bid[]) {
 
-		const {
-			suitIndex: newSuitIndex,
-			level: newLevel,
-		} = currentBid;
+		const mostRecentThreeBids = bids.slice(-3);
+		const threeConsecutivePasses = mostRecentThreeBids.reduce((acc, current) => {
+			return acc && current.level === 100;
+		}, true)
 
-		// No previous bids have been made yet
-		if (previousBid === null) {
-			return true;
-		}
+        return threeConsecutivePasses;
 
-		// Allow a bid of Double at any time
-		if (newSuitIndex === 99) {
-			return true;
-		}
-
-		if (newLevel > previousLevel) {
-			return true;
-		} else if (newLevel < previousLevel) {
-			return false;
-		} else {
-
-			// Level is the same
-			if (newSuitIndex < previousSuitIndex) {
-				return true;
-			} else {
-				return false;
-			}
-
-		}
-
-	}
+    }
 
 	function placeNewBid(bid: Bid) {
 
 		const updatedPreviousBidsArray = [...previousBids, bid];
 		setPreviousBids(updatedPreviousBidsArray);
 
-		const mostRecentThreeBids = updatedPreviousBidsArray.slice(-3);
-		const threePasses = mostRecentThreeBids.reduce((acc, current) => {
-			return acc && current.level === 100;
-		}, true)
-
-		if (threePasses) {
+		if (containsThreeConsecutivePasses(updatedPreviousBidsArray)) {
 			setValidBids([]);
 			return false;
 		}
@@ -109,7 +77,46 @@ export function BiddingSystem(props: { currentBid: Bid; numberOfPasses: number, 
 			return validBids;
 		}
 
-		const updatedValidBids = validBids.filter(newBid => isCurrentBidValid(previousBid, newBid));
+		const {
+			suitIndex: previousSuitIndex,
+			level: previousLevel
+		} = previousBid;
+
+		function filterValidBids(currentBid: Bid) {
+
+			const {
+				suitIndex: newSuitIndex,
+				level: newLevel,
+			} = currentBid;
+
+			// No previous bids have been made yet
+			if (previousBid === null) {
+				return true;
+			}
+
+			// Allow a bid of Double at any time
+			if (newSuitIndex === 99) {
+				return true;
+			}
+
+			if (newLevel > previousLevel) {
+				return true;
+			} else if (newLevel < previousLevel) {
+				return false;
+			} else {
+
+				// Level is the same
+				if (newSuitIndex < previousSuitIndex) {
+					return true;
+				} else {
+					return false;
+				}
+
+			}
+
+		}
+
+		const updatedValidBids = validBids.filter(newBid => filterValidBids(newBid));
 
 		return updatedValidBids;
     }
