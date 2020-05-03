@@ -1,4 +1,4 @@
-import React, { MouseEvent } from 'React'
+import React from 'React'
 
 import {
 	DisplayBid
@@ -6,31 +6,24 @@ import {
 
 import './bid.scss';
 
-interface foo {
-    placeNewBid: (newSuit: string, newLevel: number) => void;
-    bid: DisplayBid;
+interface BidViewProps {
+	placeNewBid: (bid: DisplayBid) => boolean;
+	bid: DisplayBid;
 }
 
-export function BidView(props: foo) {
+export function BidView(props: BidViewProps) {
 
-    function handleClick() {
-        console.log('clicked on', props.bid.level, props.bid.suit);
+	const level = props.bid.suit === 'Double' ? '' : props.bid.level;
 
-        // let level: number;
-        // if (typeof props.bid.level === 'number') {
-        //     level = props.bid.level;
-        // } else {
-        //     level = 0;
-        // }
+	function handleClick() {
+		console.log('clicked on', props.bid);
 
-        // props.placeNewBid(props.bid.suit, level);
-    }
-
-	const level = props.bid.level === 99 ? '' : props.bid.level;
+		props.placeNewBid(props.bid);
+	}
 
 	return (
 		<div className='bid'>
-			<p className='bid__info' onClick={handleClick}>- {level} {props.bid.suit}</p>
+		<p className='bid__info' onClick={handleClick}>- {level} {props.bid.suit}</p>
 		</div>
 	)
 

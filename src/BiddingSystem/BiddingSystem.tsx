@@ -9,19 +9,26 @@ import { BidView } from './Bid';
 
 export function BiddingSystem(props: { currentBid: Bid; numberOfPasses: number }) {
 
-	const [currBid, setCurrBid] = useState(props.currentBid || null);
+	const [usersBid, setUsersBid] = useState(null);
 
 	const double: DisplayBid = { suit: 'Double', level: 99 };
 	const suits = ['No Trump', 'Spades', 'Hearts', 'Diamonds', 'Clubs'];
 	const allBids = getAllBids();
 	const validBids = getValidBids(props.currentBid);
 
-	let displayableValidBids: DisplayBid[] = validBids.map(bid => {
-		return {
-			suit: suits[bid.suitIndex],
-			level: bid.level
-		};
-	});
+	let displayableValidBids: DisplayBid[] = validBids
+		.sort((bidOne, bidTwo) => {
+			//@ts-ignore
+			return bidTwo.level - bidOne.level;
+		})
+		.map(bid => {
+			return {
+				suit: suits[bid.suitIndex],
+				level: bid.level
+			};
+		})
+		.reverse();
+
 	displayableValidBids.push(double);
 
 	function getAllBids() {
@@ -44,24 +51,26 @@ export function BiddingSystem(props: { currentBid: Bid; numberOfPasses: number }
 
 	}
 
-	function isValidBid(previousBid: Bid, newBid: Bid) {
-		const {
+	function isCurrentBidValid(previousBid: Bid, currentBid: Bid) {
+		let {
 			suitIndex: previousSuitIndex,
 			level: previousLevel
 		} = previousBid;
 
+		// If the previous bid was a Double, use the bid before the Double to filter
+		// out invalid bid
+		if (previousBid.previousLevel && previousBid.previousSuitIndex) {
+			previousSuitIndex = previousBid.previousSuitIndex;
+			previousLevel = previousBid.previousLevel;
+		}
+
 		const {
 			suitIndex: newSuitIndex,
 			level: newLevel,
-		} = newBid;
-
-		// No bid has been made and this is the first one
-		if (previousBid === null) {
-			return true;
-		}
+		} = currentBid;
 
 		// No previous bids have been made yet
-		if(previousBid === null) {
+		if (previousBid === null) {
 			return true;
 		}
 
@@ -71,35 +80,37 @@ export function BiddingSystem(props: { currentBid: Bid; numberOfPasses: number }
 		}
 
 		if (newLevel > previousLevel) {
-
 			return true;
-
 		} else if (newLevel < previousLevel) {
-
 			return false;
-
 		} else {
+
 			// Level is the same
-
 			if (newSuitIndex < previousSuitIndex) {
-
 				return true;
-
 			} else {
-
 				return false;
-
 			}
 
 		}
 
 	}
 
-	function placeNewBid(newSuit: string, newLevel: number) {
+	function placeNewBid(bid: DisplayBid) {
+
+		const {
+			suit,
+			level
+		} = bid;
+
+		// When bidding Double, store the previous bid suit and level in optional props
+		const isDoubleBid = suit === 'Double';
 
 		const newBid: Bid = {
-			suitIndex: newSuit === 'Double' ? 99 : suits.indexOf(newSuit),
-			level: newLevel
+			suitIndex: isDoubleBid ? 99 : suits.indexOf(suit),
+			level: level,
+			previousSuitIndex: isDoubleBid ? props.currentBid.suitIndex : undefined, // eslint-disable-line no-undefined
+			previousLevel: isDoubleBid ? props.currentBid.level : undefined // eslint-disable-line no-undefined
 		}
 
 		// No bidding allowed after three passes
@@ -108,22 +119,30 @@ export function BiddingSystem(props: { currentBid: Bid; numberOfPasses: number }
 		}
 
 		// Note: This will always be true as user can only select valid bids
-        const isValid = isValidBid(props.currentBid, newBid);
+        const isValid = isCurrentBidValid(props.currentBid, newBid);
 
 		if (isValid) {
 			// TODO: Fire new bid to the server
-			setCurrBid(newBid);
+
+			setUsersBid(newBid);
+			return true;
 		} else {
-			// throw error
+			return false;
 		}
 
 	}
 
 	function getValidBids(currentBid: Bid) {
-		const validBids = allBids.filter(bid => isValidBid(currentBid, bid));
+		const validBids = allBids.filter(bid => isCurrentBidValid(currentBid, bid));
 
 		return validBids;
     }
+
+	function getDisplayableBid(bid: Bid) {
+		if (bid.suitIndex === 99) {
+
+		}
+	}
 
 	return (
 		<div className='bidding-system'>
@@ -132,7 +151,9 @@ export function BiddingSystem(props: { currentBid: Bid; numberOfPasses: number }
 			</div>
 
 			<div className='bidding-system__available-bids'>
-				{displayableValidBids.map((bid, index) => <BidView key={index} placeNewBid={placeNewBid} bid={bid}/>)}
+				{displayableValidBids.map((bid, index) => {
+					return <BidView key={index} placeNewBid={placeNewBid} bid={bid}/>
+				})}
 			</div>
 		</div>
 	)
