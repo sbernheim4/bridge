@@ -80,7 +80,7 @@
   "scripts": {
     "start": "node server-dist/server.js",
     "start:watch": "nodemon --watch server-dist server-dist/server.js",
-    "wds": "./node_modules/.bin/webpack-dev-server --open --hot",
+    "wds": "./node_modules/.bin/webpack-dev-server --open -w",
     "build:dev": "rm -rf public/ && ./node_modules/.bin/webpack",
     "build": "webpack --mode=production",
     "build:watch": "rm -rf public && webpack -w",

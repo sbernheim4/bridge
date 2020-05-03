@@ -13,17 +13,15 @@ const envKeys = Object.keys(env).reduce((prev, next) => {
 	return prev;
 }, {});
 
-const port = envKeys['process.env.PORT'];
-
 const clientConfig = {
 	entry: {
 		main: "./src/index.tsx", // Entry point of where webpack should start from
 	},
 	devtool: "source-map",
 	output: {
-		// output build file to /public folder and call the file bundle.js
-		path: __dirname + "/public",
-		filename: "[name].js"
+        path: path.join(__dirname, "public"),
+        publicPath: '/',
+		filename: "[name].js",
 	},
 	module: {
 		rules: [
@@ -62,19 +60,18 @@ const clientConfig = {
 
 	devServer: {
 		historyApiFallback: true,
-		contentBase: path.join(__dirname, './public'),
-		proxy: {
-			"/api": `http://localhost:${port}`
-		}
+        contentBase: __dirname + '/public',
+        hot: true
 	},
 
 	plugins: [
 		new HtmlWebpackPlugin({
 			base: './public/',
-			template: 'HTMLTemplate.js',
+			template: path.join(__dirname, 'HTMLTemplate.js'),
 			dest: 'index.html',
 			inject: false,
-			title: 'Premiere Mern Stack'
+			title: 'Premiere Mern Stack',
+			alwaysWriteToDisk: true
 		}),
 
 		// Optimizes css by minifying it and removing comments
