@@ -8,12 +8,14 @@ export type DisplayBid = {
 	level: number;
 }
 
+export type NullableBid = Bid | null;
+
 export interface BidViewProps {
 	placeNewBid: (bid: Bid) => boolean;
 	bid: Bid;
 }
 
 export interface BiddingSystemProps {
-    currentBid: Bid;
+    currentBid: NullableBid;
     previousBids: Bid[];
 }
