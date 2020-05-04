@@ -1,0 +1,30 @@
+.home {
+
+	height: 90vh;
+
+	h1 {
+		text-align: center;
+	}
+
+	a {
+		position: relative;
+		top: 30%;
+		margin: 0 auto;
+		width: 300px;
+		height: 80px;
+		padding: 30px;
+		background-color: #3d73ad;;
+		border-radius: 5px;
+		text-decoration: none;
+		font-size: 30px;
+		color: black;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		&:hover {
+			background-color: #2f5b8a;
+			transition: .2s ease-in-out;
+		}
+	}
+}
