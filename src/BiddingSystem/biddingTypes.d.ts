@@ -16,6 +16,7 @@ export interface BidViewProps {
 }
 
 export interface BiddingSystemProps {
-    currentBid: NullableBid;
-    previousBids: Bid[];
+	currentBid: NullableBid;
+	previousBids: Bid[];
+	sessionId: string;
 }
