@@ -13,10 +13,6 @@ class Navbar extends Component {
 		return (
 			<nav className='navbar'>
 				<Link id="main" to='/'>Home</Link>
-
-				<hr/>
-
-				<Link to='/subpage'>Subpage</Link>
 			</nav>
 		);
 	}

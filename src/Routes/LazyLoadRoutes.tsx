@@ -14,11 +14,6 @@ export const Home = Loadable({
 	loading: () => <div>Loading...</div>
 });
 
-export const Subpage = Loadable({
-	loader: () => import ('./Subpage/Subpage'),
-	loading: () => <div>Loading...</div>
-});
-
 export const ErrorPage = Loadable({
 	loader: () => import ('./404/404'),
 	loading: () => <div>Loading...</div>

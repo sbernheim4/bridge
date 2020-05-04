@@ -1,25 +1,22 @@
-import React, { Component } from "react";
+import React from "react";
 
 import { HandRenderer } from './../../Cards/HandRenderer';
 
-import './home.css';
+import './home.scss';
 
-class Home extends Component {
-	constructor(props: {}) {
-		super(props);
+import { Link } from "react-router-dom";
 
-		this.state = {
+ function Home(_props: any) {
 
-		};
-	}
+	 const link = '/play?id=' + uuidv4();
 
-	render() {
-		return (
-			<div className="home">
-				<HandRenderer />
-			</div>
-		);
-	}
-}
+	 return (
+		 <div className="home">
+
+		 	<Link to={link}>Start Playing</Link>
+
+		 </div>
+	 );
+ }
 
 export default Home;
