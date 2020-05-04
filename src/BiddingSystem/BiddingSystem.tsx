@@ -9,6 +9,7 @@ import { getDisplayableBid } from './getDisplayableBid';
 import { BidView } from './Bid';
 
 import './biddingSystem.scss';
+import { sendBid } from './../Firebase/';
 
 export function BiddingSystem(props: BiddingSystemProps) {
 
@@ -70,6 +71,8 @@ export function BiddingSystem(props: BiddingSystemProps) {
 
 		const updatedValidBids = getValidBids(bid, validBids);
 		setValidBids(updatedValidBids);
+
+		sendBid(updatedPreviousBidsArray, props.sessionId)
 
 		return true;
 
