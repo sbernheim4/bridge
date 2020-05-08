@@ -8,7 +8,7 @@ import './cardContainer.scss';
 export function CardContainer(props: { cards: ICard[] }) {
 	const { cards } = props;
 
-	function sortCards(cardOne: ICard, cardTwo: ICard) {
+	function sortCards(cardOne: ICard, cardTwo: ICard): number {
 		// Same suit, sort by value
 		if (cardOne.suit === cardTwo.suit) {
 			return parseInt(cardTwo.value) - parseInt(cardOne.value);
@@ -40,7 +40,7 @@ export function CardContainer(props: { cards: ICard[] }) {
 	const suits = [
 		{ suit: 'Spades', symbol: '♠️ ' },
 		{ suit: 'Hearts', symbol: '♥️ ' },
-		{ suit: 'Diamonds', symbol: '♦️ '},
+		{ suit: 'Diamonds', symbol: '♦️ ' },
 		{ suit: 'Clubs', symbol: '♣️' },
 	];
 

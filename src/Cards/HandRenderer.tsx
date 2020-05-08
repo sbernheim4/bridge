@@ -8,7 +8,7 @@ export function HandRenderer() {
 	function generateDeckOfCards() {
 		const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14']
 		const suits = ['Spades', 'Hearts', 'Diamonds', 'Clubs'];
-		let deckOfCards: ICard[] = [];
+		const deckOfCards: ICard[] = [];
 
 		for (const suit of suits) {
 			for (const value of values) {
@@ -40,7 +40,7 @@ export function HandRenderer() {
 			return hands;
 		}
 
-		let hand = [];
+		const hand = [];
 
 		let remainingDeckOfCards = deckOfCards;
 

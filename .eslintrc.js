@@ -1,10 +1,14 @@
-{
-	"parser": "babel-eslint",
+module.exports = {
+	"parser": "@typescript-eslint/parser",
 	"env": {
 		"es6": true,
 		"browser": true,
 		"node": true
 	},
+	"extends": [
+		'eslint:recommended',
+		'plugin:@typescript-eslint/recommended',
+	],
 	"parserOptions": {
 		"ecmaFeatures": {
 			"jsx": true,
@@ -23,6 +27,7 @@
 	},
 
 	"rules": {
+		"object-curly-spacing": [2, "always"],
 		"react/jsx-uses-vars": 2,
 		"camelcase": 0,
 		"no-unused-vars": 0,
