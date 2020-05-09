@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { CardElement } from './Card';
-import { Card } from './card.types';
+import { Card } from './card';
 
-import './cardContainer.scss';
+import './scss/cardContainer.scss';
 
 export function CardContainer(props: { cards: Card[] }): JSX.Element {
 	const { cards } = props;

@@ -1,8 +1,8 @@
 import React from "react";
 
-import { Card } from './card.types';
+import { Card } from './card';
 
-import './card.scss';
+import './scss/card.scss';
 
 export function CardElement (props: { card: Card }): JSX.Element {
 
