@@ -1,11 +1,6 @@
 import React from 'react';
 
-import { Bid } from './biddingTypes';
-
-interface BiddingHistoryProps {
-    positions: string[];
-    previousBids: Bid[];
-}
+import { Bid, BiddingHistoryProps } from './types/biddingTypes';
 
 export function BiddingHistory(props: BiddingHistoryProps): JSX.Element {
 
@@ -14,7 +9,6 @@ export function BiddingHistory(props: BiddingHistoryProps): JSX.Element {
 		previousBids
 	} = props;
 
-	// eslint-disable-next-line no-undefined
 	function getDisplayableBid(bid: Bid | undefined): string {
 		if (!bid) {
 			return '';
@@ -54,4 +48,3 @@ export function BiddingHistory(props: BiddingHistoryProps): JSX.Element {
 		</>
 	);
 }
-

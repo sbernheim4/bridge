@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import "firebase/database";
-import { Bid } from "./../../src/BiddingSystem/biddingTypes.d";
+import { Bid } from "../BiddingSystem/types/biddingTypes";
 
 const config = {
 	apiKey: process.env.apiKey,

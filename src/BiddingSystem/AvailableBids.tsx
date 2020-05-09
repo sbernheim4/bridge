@@ -1,14 +1,9 @@
 import React from 'react';
 
 import { BidView } from './Bid';
-import { Bid } from './biddingTypes.d'
+import { AvailableBidsProps } from './types/biddingTypes'
 
-interface BiddingHistoryProps {
-	validBids: Bid[];
-	placeNewBid(bid: Bid): boolean;
-}
-
-export function AvailableBids(props: BiddingHistoryProps): JSX.Element {
+export function AvailableBids(props: AvailableBidsProps): JSX.Element {
 
 	const {
 		validBids,
@@ -23,7 +18,6 @@ export function AvailableBids(props: BiddingHistoryProps): JSX.Element {
 					return <BidView key={index} placeNewBid={placeNewBid} bid={bid}/>
 				})}
 			</div>
-
 		</>
 	);
 }

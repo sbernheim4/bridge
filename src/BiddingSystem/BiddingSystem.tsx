@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 
 import { BiddingHistory } from './BiddingHistory';
 import { AvailableBids } from './AvailableBids';
-import { Bid, BiddingSystemProps, NullableBid } from './biddingTypes.d'
+import { Bid, BiddingSystemProps, NullableBid } from './types/biddingTypes'
 import { sendBid } from './../Firebase/';
 
-import './biddingSystem.scss';
+import './scss/biddingSystem.scss';
 
 export function BiddingSystem(props: BiddingSystemProps): JSX.Element {
 

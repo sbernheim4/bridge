@@ -20,3 +20,18 @@ export interface BiddingSystemProps {
 	previousBids: Bid[];
 	sessionId: string;
 }
+
+export interface AvailableBidsProps {
+	validBids: Bid[];
+	placeNewBid(bid: Bid): boolean;
+}
+
+export interface BidViewProps {
+	placeNewBid: (bid: Bid) => boolean;
+	bid: Bid;
+}
+
+export interface BiddingHistoryProps {
+    positions: string[];
+    previousBids: Bid[];
+}

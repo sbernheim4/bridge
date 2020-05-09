@@ -1,6 +1,6 @@
 import {
     Bid
-} from './../BiddingSystem/biddingTypes'
+} from '../BiddingSystem/types/biddingTypes'
 
 import {
     OverLine,
