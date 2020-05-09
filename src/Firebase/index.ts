@@ -1,4 +1,4 @@
-import * as firebase from "firebase/app";
+import firebase from "firebase/app";
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -20,7 +20,7 @@ const config = {
 
 firebase.initializeApp(config);
 
-export function sendBid(bids: Bid[], sessionId: string) {
+export function sendBid(bids: Bid[], sessionId: string): void {
 	firebase.database().ref(`${sessionId}/bids`).set({
 		bids: bids
 	});

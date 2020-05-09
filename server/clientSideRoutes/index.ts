@@ -9,7 +9,8 @@ const router = Router();
 
 const routes = [
 	'/',
-	'/subpage'
+	'/subpage',
+	'/play',
 ];
 
 router.get("*", (req, res, next) => {

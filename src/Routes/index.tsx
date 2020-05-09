@@ -4,38 +4,42 @@
  * file and SHOULD NOT be declared in LazyLoadRoutes.jsx
  */
 
-import React, { Component } from 'react';
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 
 // Navbar should appear on every page and so should not be lazy loaded
 import Navbar from "../Navbar/Navbar";
 
 // Import lazy loaded route components
 import { Home, ErrorPage } from './LazyLoadRoutes';
+import { BiddingSystem } from './../BiddingSystem/BiddingSystem';
 
-class Routes extends Component {
-	constructor(props: {}) {
-		super(props);
-		this.state = {
+function Routes(): JSX.Element {
 
-		}
-	}
+	const id = uuidv4();
 
-	render(): JSX.Element {
+	return (
+		<div>
+			<Navbar />
 
-		return (
-			<div>
-				<Navbar />
+			<Switch>
+				<Route exact path='/' render={(): JSX.Element => <Home id={id}/>}/>
 
-				<Switch>
-					<Route exact path='/' component={Home}/>
-					<Route component={ErrorPage}/> {/* This route is run when no matches are found - It's your 404 fallbback */}
-				</Switch>
+				<Route exact path='/play' render={
+						(): JSX.Element => <BiddingSystem
+							currentBid={null}
+							previousBids={[]}
+							sessionId={'foo'}
+						/>
+					}
+				/>
 
-				{/* <Link /> elements are in Navbar.jsx */}
-			</div>
-		);
-	}
+				<Route component={ErrorPage}/> {/* This route is run when no matches are found - It's your 404 fallbback */}
+
+			</Switch>
+		</div>
+	);
 }
 
 export default Routes;

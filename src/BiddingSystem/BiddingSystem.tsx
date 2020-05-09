@@ -1,20 +1,13 @@
 import React, { useState } from 'react';
 
-import {
-	Bid,
-	BiddingSystemProps,
-	NullableBid
-} from './biddingTypes.d'
-import { getDisplayableBid } from './getDisplayableBid';
-import { BidView } from './Bid';
-
-import './biddingSystem.scss';
+import { BiddingHistory } from './BiddingHistory';
+import { AvailableBids } from './AvailableBids';
+import { Bid, BiddingSystemProps, NullableBid } from './biddingTypes.d'
 import { sendBid } from './../Firebase/';
 
-export function BiddingSystem(props: BiddingSystemProps): JSX.Element {
+import './biddingSystem.scss';
 
-	const pass: Bid = { suitIndex: 100, level: 100 };
-	const double: Bid = { suitIndex: 99, level: 99 };
+export function BiddingSystem(props: BiddingSystemProps): JSX.Element {
 
 	function getValidBids(previousBid: NullableBid, validBids: Bid[]): Bid[] {
 		if (previousBid === null || previousBid.level >= 99 ) {
@@ -65,51 +58,55 @@ export function BiddingSystem(props: BiddingSystemProps): JSX.Element {
 		return updatedValidBids;
 	}
 
-	function getAllBids(): Bid[] {
-		const suits = ['No Trump', 'Spades', 'Hearts', 'Diamonds', 'Clubs'];
-		const levels = [1, 2, 3, 4, 5, 6, 7];
+	function getInitialValidBids(bid: NullableBid): Bid[] {
 
-		const allBids: Bid[] = [];
+		function getAllBids(): Bid[] {
+			const suits = ['No Trump', 'Spades', 'Hearts', 'Diamonds', 'Clubs'];
+			const levels = [1, 2, 3, 4, 5, 6, 7];
 
-		for (const level of levels) {
-			for (const suit of suits) {
+			const allBids: Bid[] = [];
 
-				allBids.push({
-					level: level,
-					suitIndex: suits.indexOf(suit)
-				});
+			for (const level of levels) {
+				for (const suit of suits) {
 
+					allBids.push({
+						level: level,
+						suitIndex: suits.indexOf(suit)
+					});
+				}
 			}
+			return allBids;
 		}
 
-		return allBids;
+		const pass: Bid = { suitIndex: 100, level: 100 };
+		const double: Bid = { suitIndex: 99, level: 99 };
 
+		const res = getValidBids(bid, getAllBids())
+			.sort((bidOne, bidTwo) => {
+				return bidTwo.level - bidOne.level;
+			})
+			.reverse()
+			.concat(double, pass);
+
+		return res;
 	}
 
-
-	const initialValidBids = getValidBids(props.currentBid, getAllBids())
-		.sort((bidOne, bidTwo) => {
-			return bidTwo.level - bidOne.level;
-		})
-		.reverse()
-		.concat(double, pass)
-
-	const [validBids, setValidBids] = useState(initialValidBids);
+	const [validBids, setValidBids] = useState(getInitialValidBids(props.currentBid));
 	const [previousBids, setPreviousBids] = useState(props.previousBids || []);
 	const positions = ['North', 'East', 'South', 'West'];
 
-	function containsThreeConsecutivePasses(bids: Bid[]): boolean {
-
-		const mostRecentThreeBids = bids.slice(-3);
-		const threeConsecutivePasses = mostRecentThreeBids.reduce((acc, current) => {
-			return acc && current.level === 100;
-		}, true)
-
-		return threeConsecutivePasses;
-
-	}
-
 	function placeNewBid(bid: Bid): boolean {
+
+		function containsThreeConsecutivePasses(bids: Bid[]): boolean {
+
+			const mostRecentThreeBids = bids.slice(-3);
+			const threeConsecutivePasses = mostRecentThreeBids.reduce((acc, current) => {
+				return acc && current.level === 100;
+			}, true)
+
+			return threeConsecutivePasses;
+
+		}
 
 		const updatedPreviousBidsArray = [...previousBids, bid];
 		setPreviousBids(updatedPreviousBidsArray);
@@ -128,28 +125,11 @@ export function BiddingSystem(props: BiddingSystemProps): JSX.Element {
 
 	}
 
-	function getMostRecentSuitBid(stackOfBids: Bid[]): Bid | undefined {
-		return [...stackOfBids].reverse().find(bid => bid.level < 99);
-	}
-
 	return (
 		<div className='bidding-system'>
-            <h3 className='bidding-system__history-header'>Bids ({getDisplayableBid(getMostRecentSuitBid(previousBids))})</h3>
 
-			<div className='bidding-system__bidding-history'>
-				{positions.map((position, index) => <p className='bidding-system__bidding-history--header' key={index}>{position}</p>)}
-
-				{previousBids.map((bid, index) => {
-					return <p key={index}>{getDisplayableBid(bid)}</p>
-				})}
-			</div>
-
-            <h3 className='bidding-system__available-header'>Available Bids</h3>
-			<div className='bidding-system__available-bids'>
-				{validBids.map((bid, index) => {
-					return <BidView key={index} placeNewBid={placeNewBid} bid={bid}/>
-				})}
-			</div>
+			<BiddingHistory positions={positions} previousBids={previousBids} />
+			<AvailableBids validBids={validBids} placeNewBid={placeNewBid} />
 
 		</div>
 	);

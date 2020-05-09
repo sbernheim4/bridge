@@ -2,8 +2,7 @@ import {
     Bid
 } from './biddingTypes'
 
-
-export function getDisplayableBid(bid: Bid | undefined) { // eslint-disable-line no-undefined
+export function getDisplayableBid(bid: Bid | undefined): string {
 
 	if (!bid) {
 		return '';

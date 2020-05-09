@@ -25,6 +25,9 @@ const clientConfig = {
         publicPath: '/',
 		filename: "[name].js",
 	},
+	node: {
+		fs: "empty",
+	},
 	module: {
 		rules: [
 			// lint all jsx files and then run babel on them before bundling
@@ -83,7 +86,7 @@ const clientConfig = {
 
 		new OptimizeCssAssetsPlugin({
 			cssProcessor: nano,
-			cssProcessorOptions: {discardComments: {removeAll: true} },
+			cssProcessorOptions: { discardComments: { removeAll: true } },
 			canPrint: true
 		}),
 
