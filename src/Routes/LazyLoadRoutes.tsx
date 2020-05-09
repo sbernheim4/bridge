@@ -9,12 +9,14 @@
 import React from 'react';
 import Loadable from 'react-loadable';
 
+const loading = (): JSX.Element => <div>Loading...</div>;
+
 export const Home = Loadable({
 	loader: () => import('./Home/Home'),
-	loading: () => <div>Loading...</div>
+	loading
 });
 
 export const ErrorPage = Loadable({
 	loader: () => import ('./404/404'),
-	loading: () => <div>Loading...</div>
+	loading
 });

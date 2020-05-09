@@ -12,9 +12,9 @@ interface BidViewProps {
 	bid: Bid;
 }
 
-export function BidView(props: BidViewProps) {
+export function BidView(props: BidViewProps): JSX.Element {
 
-	function handleClick() {
+	function handleClick(): void {
 		console.log('clicked on', props.bid);
 
 		props.placeNewBid(props.bid);

@@ -1,14 +1,14 @@
 import React from 'react';
 
+import { Card } from './card.types';
 import { CardContainer } from './CardContainer';
-import { ICard } from './card.types';
 
-export function HandRenderer() {
+export function HandRenderer(): JSX.Element {
 
-	function generateDeckOfCards() {
+	function generateDeckOfCards(): Card[] {
 		const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14']
 		const suits = ['Spades', 'Hearts', 'Diamonds', 'Clubs'];
-		const deckOfCards: ICard[] = [];
+		const deckOfCards: Card[] = [];
 
 		for (const suit of suits) {
 			for (const value of values) {
@@ -24,17 +24,7 @@ export function HandRenderer() {
 		return deckOfCards;
 	}
 
-	function generateAllHands() {
-
-		const deckOfCards = generateDeckOfCards();
-		const hands = generateHand(deckOfCards);
-
-		return hands;
-
-	}
-
-	// @ts-ignore
-	function generateHand(deckOfCards: ICard[], hands: ICard[][] = [], baseCondition = 4) {
+	function generateHand(deckOfCards: Card[], hands: Card[][] = [], baseCondition = 4): Card[][] {
 
 		if (baseCondition === 0) {
 			return hands;
@@ -64,7 +54,16 @@ export function HandRenderer() {
 
 	}
 
-	const hands: ICard[][] = generateAllHands();
+	function generateAllHands(): Card[][] {
+
+		const deckOfCards = generateDeckOfCards();
+		const hands = generateHand(deckOfCards);
+
+		return hands;
+
+	}
+
+	const hands: Card[][] = generateAllHands();
 
 	return (
 		<div>

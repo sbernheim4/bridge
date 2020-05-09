@@ -1,22 +1,21 @@
 import React from "react";
-
 import { v4 as uuidv4 } from 'uuid';
-
-import './home.scss';
 
 import { Link } from "react-router-dom";
 
- function Home(_props: any) {
+import './home.scss';
 
-	 const link = '/play?id=' + uuidv4();
+function Home(): JSX.Element {
 
-	 return (
-		 <div className="home">
+	const link = '/play?id=' + uuidv4();
 
-		 	<Link to={link}>Start Playing</Link>
+	return (
+		<div className="home">
 
-		 </div>
-	 );
- }
+			<Link to={link}>Start Playing</Link>
+
+		</div>
+	);
+}
 
 export default Home;

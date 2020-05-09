@@ -1,14 +1,14 @@
 import React from 'react';
 
-import { Card } from './Card';
-import { ICard } from './card.types';
+import { CardElement } from './Card';
+import { Card } from './card.types';
 
 import './cardContainer.scss';
 
-export function CardContainer(props: { cards: ICard[] }) {
+export function CardContainer(props: { cards: Card[] }): JSX.Element {
 	const { cards } = props;
 
-	function sortCards(cardOne: ICard, cardTwo: ICard): number {
+	function sortCards(cardOne: Card, cardTwo: Card): number {
 		// Same suit, sort by value
 		if (cardOne.suit === cardTwo.suit) {
 			return parseInt(cardTwo.value) - parseInt(cardOne.value);
@@ -44,11 +44,11 @@ export function CardContainer(props: { cards: ICard[] }) {
 		{ suit: 'Clubs', symbol: '♣️' },
 	];
 
-	const cardsSplitBySuit: ICard[][] = [];
+	const cardsSplitBySuit: Card[][] = [];
 
 	suits.forEach(val => {
 
-		const currentSuit: ICard[] = [];
+		const currentSuit: Card[] = [];
 
 		const foo = sortedCards.reduce((acc, curr) => {
 			if (curr.suit === val.suit) {
@@ -72,7 +72,7 @@ export function CardContainer(props: { cards: ICard[] }) {
 							<span className={suits[index].suit.toLowerCase()}>
 								{suits[index].symbol}
 							</span>
-							{subCards.map((card, index) => <Card key={index} card={card} />)}
+							{subCards.map((card, index) => <CardElement key={index} card={card} />)}
 						</div>
 					)
 				})}

@@ -21,8 +21,7 @@ class Routes extends Component {
 		}
 	}
 
-	render() {
-
+	render(): JSX.Element {
 
 		return (
 			<div>

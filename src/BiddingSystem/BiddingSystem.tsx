@@ -11,12 +11,12 @@ import { BidView } from './Bid';
 import './biddingSystem.scss';
 import { sendBid } from './../Firebase/';
 
-export function BiddingSystem(props: BiddingSystemProps) {
+export function BiddingSystem(props: BiddingSystemProps): JSX.Element {
 
 	const pass: Bid = { suitIndex: 100, level: 100 };
 	const double: Bid = { suitIndex: 99, level: 99 };
 
-	function getValidBids(previousBid: NullableBid, validBids: Bid[]) {
+	function getValidBids(previousBid: NullableBid, validBids: Bid[]): Bid[] {
 		if (previousBid === null || previousBid.level >= 99 ) {
 			return validBids;
 		}
@@ -26,7 +26,7 @@ export function BiddingSystem(props: BiddingSystemProps) {
 			level: previousLevel
 		} = previousBid;
 
-		function filterValidBids(currentBid: Bid) {
+		function filterValidBids(currentBid: Bid): boolean {
 
 			const {
 				suitIndex: newSuitIndex,
@@ -65,7 +65,7 @@ export function BiddingSystem(props: BiddingSystemProps) {
 		return updatedValidBids;
 	}
 
-	function getAllBids() {
+	function getAllBids(): Bid[] {
 		const suits = ['No Trump', 'Spades', 'Hearts', 'Diamonds', 'Clubs'];
 		const levels = [1, 2, 3, 4, 5, 6, 7];
 
@@ -98,7 +98,7 @@ export function BiddingSystem(props: BiddingSystemProps) {
 	const [previousBids, setPreviousBids] = useState(props.previousBids || []);
 	const positions = ['North', 'East', 'South', 'West'];
 
-	function containsThreeConsecutivePasses(bids: Bid[]) {
+	function containsThreeConsecutivePasses(bids: Bid[]): boolean {
 
 		const mostRecentThreeBids = bids.slice(-3);
 		const threeConsecutivePasses = mostRecentThreeBids.reduce((acc, current) => {
@@ -109,7 +109,7 @@ export function BiddingSystem(props: BiddingSystemProps) {
 
 	}
 
-	function placeNewBid(bid: Bid) {
+	function placeNewBid(bid: Bid): boolean {
 
 		const updatedPreviousBidsArray = [...previousBids, bid];
 		setPreviousBids(updatedPreviousBidsArray);
@@ -128,15 +128,17 @@ export function BiddingSystem(props: BiddingSystemProps) {
 
 	}
 
-	function getMostRecentSuitBid(stackOfBids: Bid[]) {
+	function getMostRecentSuitBid(stackOfBids: Bid[]): Bid | undefined {
 		return [...stackOfBids].reverse().find(bid => bid.level < 99);
 	}
 
 	return (
 		<div className='bidding-system'>
             <h3 className='bidding-system__history-header'>Bids ({getDisplayableBid(getMostRecentSuitBid(previousBids))})</h3>
+
 			<div className='bidding-system__bidding-history'>
 				{positions.map((position, index) => <p className='bidding-system__bidding-history--header' key={index}>{position}</p>)}
+
 				{previousBids.map((bid, index) => {
 					return <p key={index}>{getDisplayableBid(bid)}</p>
 				})}
@@ -148,6 +150,7 @@ export function BiddingSystem(props: BiddingSystemProps) {
 					return <BidView key={index} placeNewBid={placeNewBid} bid={bid}/>
 				})}
 			</div>
+
 		</div>
 	);
 }

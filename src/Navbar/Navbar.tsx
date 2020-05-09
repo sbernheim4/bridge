@@ -9,7 +9,7 @@ class Navbar extends Component {
 		super(props);
 	}
 
-	render() {
+	render(): JSX.Element {
 		return (
 			<nav className='navbar'>
 				<Link id="main" to='/'>Home</Link>

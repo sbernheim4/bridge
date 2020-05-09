@@ -1,12 +1,12 @@
 import React from "react";
 
-import { ICard } from './card.types';
+import { Card } from './card.types';
 
 import './card.scss';
 
-export function Card (props: { card: ICard }) {
+export function CardElement (props: { card: Card }): JSX.Element {
 
-	function getDisplayValue(value: string) {
+	function getDisplayValue(value: string): string {
 		switch (value) {
 			case '11':
 				return 'J';
@@ -21,7 +21,7 @@ export function Card (props: { card: ICard }) {
 		}
 	}
 
-	function playCard() {
+	function playCard(): void {
 		console.log(props.card);
 	}
 
