@@ -27,7 +27,7 @@ const sessionInfo = session({
 	secret: 'JDKLSJDKL*(@#SJKJK#@ULSFJDOIP(*J@KJKDLFJAL)',
 	resave: true,
 	saveUninitialized: true,
-	cookie: { maxAge: 600000 }
+	cookie: { maxAge: 600000 },
 });
 
 if (process.env.DB_URI) {
@@ -37,7 +37,8 @@ if (process.env.DB_URI) {
 
 	// Use mongo for session store
 	const sessionStore = MongoStore(session)
-    //@ts-ignore
+	// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+	// @ts-ignore
 	sessionInfo['store'] = new sessionStore({ mongooseConnection: mongoose.connection });
 }
 
@@ -61,11 +62,11 @@ app.use(express.static(path.resolve('public'), { maxAge: cacheTime } ));
 /****************** Log Requests ******************/
 app.use('*', (req: Request, _res: Response, next: NextFunction) => {
 
-    const { method, path, query, body } = req;
+	const { method, path, query, body } = req;
 
-    const requestStr = `\nREQUEST ${JSON.stringify(method)} ${path}\n`
-    const queryStr = `QUERY ${JSON.stringify(query)}\n`
-    const bodyStr = `BODY: ${JSON.stringify(body)}\n`
+	const requestStr = `\nREQUEST ${JSON.stringify(method)} ${path}\n`
+	const queryStr = `QUERY ${JSON.stringify(query)}\n`
+	const bodyStr = `BODY: ${JSON.stringify(body)}\n`
 
 	logger.log({
 		level: 'info',
@@ -91,6 +92,13 @@ app.use("*", (_req: Request, res: Response) => {
 });
 
 /****************** Start the Server and DB (if DB_URI env var is set) ******************/
+
+function startServer(): void {
+	app.listen(PORT, () => {
+		console.log(chalk.blue(`App is live on ${process.env.DEV_BASE_URL}`));
+	});
+}
+
 if (process.env.DB_URI && process.env.DB_URI !== '') {
 
 	startDb().then(() => {
@@ -99,9 +107,9 @@ if (process.env.DB_URI && process.env.DB_URI !== '') {
 
 	}).catch(err => {
 
-		 console.log(err)
+		console.log(err)
 
-	 });
+	});
 
 } else {
 
@@ -112,14 +120,4 @@ if (process.env.DB_URI && process.env.DB_URI !== '') {
 	));
 
 	startServer();
-}
-
-function startServer() {
-
-	app.listen(PORT, () => {
-
-		console.log(chalk.blue(`App is live on ${process.env.DEV_BASE_URL}`));
-
-	});
-
 }

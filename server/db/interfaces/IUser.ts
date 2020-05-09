@@ -1,6 +1,6 @@
 import { Document } from 'mongoose';
 
-export default interface IUser extends Document {
+export default interface UserInterface extends Document {
 
     name?: string;
     facebookID?: string;
@@ -9,7 +9,7 @@ export default interface IUser extends Document {
     monthlyBudget?: number;
     accessTokens?: Array<string>;
     itemId?: Array<string>;
-    displayNames?: Array<string>
+    displayNames?: Array<string>;
     lastAccessed?: string;
 
 }

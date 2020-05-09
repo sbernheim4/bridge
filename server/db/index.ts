@@ -7,7 +7,7 @@ import logger from './../logger';
 
 import './models';
 
-const startDb = async function() {
+const startDb = async function(): Promise<void> {
 
 	try {
 
