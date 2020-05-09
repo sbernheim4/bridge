@@ -51,7 +51,7 @@ function determineNegativePoints(trickCount: number, contractLevel: number, isPe
     return { points: -1 * (contractLevel - trickCount) * underTrickValue * multiplier };
 }
 
-export function checkContractMade(trickCount: number, contract: Bid, isPenaltyDoubled: boolean): {aboveTheLine: OverLine; belowTheLine: UnderLine } {
+export function checkContractMade(trickCount: number, contract: Bid, isPenaltyDoubled: boolean): { aboveTheLine: OverLine; belowTheLine: UnderLine } {
 
     if (trickCount >= contract.level) {
 
