@@ -21,7 +21,7 @@ const config = {
 firebase.initializeApp(config);
 
 export function sendBid(bids: Bid[], sessionId: string): void {
-	firebase.database().ref(`${sessionId}/bids`).set({
+	firebase.database().ref(`${sessionId}`).set({
 		bids: bids
 	});
 }
