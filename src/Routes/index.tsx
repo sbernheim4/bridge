@@ -30,7 +30,7 @@ function Routes(): JSX.Element {
 						(): JSX.Element => <BiddingSystem
 							currentBid={null}
 							previousBids={[]}
-							sessionId={'foo'}
+							sessionId={id}
 						/>
 					}
 				/>

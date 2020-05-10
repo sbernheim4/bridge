@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { CardElement } from './Card';
-import { Card } from './card';
+import { Card } from './card.d';
 
 import './scss/cardContainer.scss';
 
