@@ -1,11 +1,5 @@
-import {
-    Bid
-} from '../BiddingSystem/types/biddingTypes'
-
-import {
-    OverLine,
-    UnderLine
-} from './pointSystem.d'
+import { Bid } from '../BiddingSystem/types/biddingTypes'
+import { OverLine, UnderLine } from './pointSystem.d'
 
 function determineTrickPoints(contract: Bid): UnderLine {
 
