@@ -20,9 +20,31 @@ const config = {
 
 firebase.initializeApp(config);
 
+const db = firebase.database();
+const ref = db.ref();
+
+async function handleUpdates() {
+	ref.on("value",
+
+		(snapshot) => { console.log(snapshot.val()); },
+
+		(errorObject) => { console.log("The read failed: " + errorObject.code); }
+
+	);
+}
+
+function connectToGame(sessionId: string): void {
+	firebase.database().ref(sessionId).set({
+		numPlayers: players + 1;
+	})
+}
+
 export function sendBid(bids: Bid[], sessionId: string): void {
 	firebase.database().ref(`${sessionId}`).set({
 		bids: bids
 	});
 }
 
+export function receiveBid() {
+
+}
