@@ -1,11 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
-    <Reference Include="netstandard" />
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
+        <Reference Include="netstandard" />
     </PropertyGroup>
     <ItemGroup>
         <Compile Include="App.fs" />
+        <Compile Include="AppTwo.fs" />
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Fable.Browser.Dom" Version="1.1.0" />
