@@ -1,7 +1,5 @@
 module App
 
-open netstandard
-
 type contractMade = {
     aboveTheLine: int
     belowTheLine: int
@@ -38,7 +36,7 @@ let checkContractMade trickCount suitIndex level isPenaltyDoubled =
         let underTricks = determineTrickPoints suitIndex level
 
         {
-            aboveTheLine=overTricks;
+
             belowTheLine=underTricks
         }
     else
