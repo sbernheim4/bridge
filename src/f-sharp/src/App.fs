@@ -1,13 +1,13 @@
 module App
 
 type contractMade = {
-    aboveTheLine: int
+    aboveTheLine: int;
     belowTheLine: int
 }
 
 let determineTrickPoints suitIndex level =
-    let isNoTrump = if suitIndex = 0 then true else false
-    let isMajor = if suitIndex <= 2 then true else false
+    let isNoTrump = suitIndex = 0
+    let isMajor = suitIndex = 2 || suitIndex = 1
 
     if isNoTrump then 40 + (level - 1) * 30
     elif isMajor then level * 30
@@ -36,7 +36,7 @@ let checkContractMade trickCount suitIndex level isPenaltyDoubled =
         let underTricks = determineTrickPoints suitIndex level
 
         {
-
+            aboveTheLine=overTricks;
             belowTheLine=underTricks
         }
     else
