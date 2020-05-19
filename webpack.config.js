@@ -30,6 +30,10 @@ const clientConfig = {
 	},
 	module: {
 		rules: [
+			{
+				test: /\.fs(x|proj)?$/,
+				use: "fable-loader"
+			},
 			// lint all jsx files and then run babel on them before bundling
 			{
 				test: /\.jsx$/,
