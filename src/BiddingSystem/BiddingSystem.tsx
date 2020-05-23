@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { BiddingHistory } from './BiddingHistory';
 import { AvailableBids } from './AvailableBids';
 import { Bid, BiddingSystemProps, NullableBid } from './types/biddingTypes'
+import { updateBidsFromServer } from './BiddingHistoryUtils';
 import { sendBid } from './../Firebase/';
 
 import './scss/biddingSystem.scss';
@@ -94,6 +95,10 @@ export function BiddingSystem(props: BiddingSystemProps): JSX.Element {
 	const [validBids, setValidBids] = useState(getInitialValidBids(props.currentBid));
 	const [previousBids, setPreviousBids] = useState(props.previousBids || []);
 	const positions = ['North', 'East', 'South', 'West'];
+
+	useEffect(() => {
+		updateBidsFromServer(props.sessionId, setPreviousBids);
+	}, [props.sessionId]);
 
 	function placeNewBid(bid: Bid): boolean {
 
