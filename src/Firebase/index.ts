@@ -23,13 +23,6 @@ firebase.initializeApp(config);
 const db = firebase.database();
 const ref = db.ref();
 
-async function handleUpdates() {
-	ref.on("value",
-		(snapshot) => { console.log(snapshot.val()); },
-		(errorObject: { code: number }) => { console.log("The read failed: " + errorObject.code); }
-	);
-}
-
 function connectToGame(sessionId: string): void {
 	firebase.database().ref(sessionId).set({
 		numPlayers: 1

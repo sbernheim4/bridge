@@ -30,7 +30,6 @@ export function getValidBids(mostRecentBid: NullableBid): Bid[] {
 	const allBids = getAllBids();
 
 	if (mostRecentBid === null) {
-		console.log('returning all bids', allBids)
 		return allBids;
 	}
 
@@ -75,19 +74,24 @@ export function getValidBids(mostRecentBid: NullableBid): Bid[] {
 			return bidTwo.level - bidOne.level;
 		})
 		.reverse();
+
 }
 
 export function containsThreeConsecutivePasses(bids: Bid[]): boolean {
 
 	if (bids.length > 3) {
+
 		const mostRecentThreeBids = bids.slice(-3);
 		const hasThreeConsecutivePasses = mostRecentThreeBids.reduce((acc, current) => {
 			return acc && current.level === 100;
 		}, true)
 
 		return hasThreeConsecutivePasses;
+
 	} else {
+
 		return false;
+
 	}
 
 }
@@ -108,6 +112,15 @@ function updateBidsFromServer(sessionId: string, setRecoredBids: (newBids: Bid[]
 
 	});
 
+}
+
+// eslint-disable-next-line
+// @ts-ignore
+// eslint-disable-next-line
+function pureArrayReversse(arr: any[]) {
+	const copy = arr.map(x => x);
+
+	return copy.reverse();
 }
 
 // Custom useEffect hook
@@ -131,10 +144,10 @@ export const useSyncBidsWithDB = (
 
 		} else {
 
-			const mostRecentBid = recordedBids.length ? recordedBids[recordedBids.length - 1] : null;
+			const mostRecentSuitedBid = pureArrayReversse(recordedBids).find(bid => bid.level < 99);
+			const mostRecentBid: NullableBid = mostRecentSuitedBid || null;
 			const remainingBids = getValidBids(mostRecentBid);
 
-			console.log('remainingBids in useEffect', remainingBids);
 			setRemainingBids(remainingBids)
 
 		}

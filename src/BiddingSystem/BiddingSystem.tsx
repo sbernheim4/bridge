@@ -34,7 +34,6 @@ export function BiddingSystem(props: BiddingSystemProps): JSX.Element {
 		}
 	}
 
-	console.log(remainingBids);
 	return (
 		<div className='bidding-system'>
 
