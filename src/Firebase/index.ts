@@ -1,9 +1,9 @@
 import firebase from "firebase/app";
+
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-import "firebase/database";
 import { Bid } from "../BiddingSystem/types/biddingTypes";
 
 const config = {
