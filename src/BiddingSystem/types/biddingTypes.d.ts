@@ -10,28 +10,23 @@ export type DisplayBid = {
 
 export type NullableBid = Bid | null;
 
-export interface BidViewProps {
+export type BidViewProps = {
 	placeNewBid: (bid: Bid) => boolean;
 	bid: Bid;
 }
 
-export interface BiddingSystemProps {
+export type BiddingSystemProps = {
 	currentBid: NullableBid;
 	previousBids: Bid[];
 	sessionId: string;
 }
 
-export interface AvailableBidsProps {
+export type AvailableBidsProps = {
 	validBids: Bid[];
 	placeNewBid(bid: Bid): boolean;
 }
 
-export interface BidViewProps {
-	placeNewBid: (bid: Bid) => boolean;
-	bid: Bid;
-}
-
-export interface BiddingHistoryProps {
+export type BiddingHistoryProps = {
     positions: string[];
     previousBids: Bid[];
 }

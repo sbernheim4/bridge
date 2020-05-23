@@ -9,6 +9,12 @@ module.exports = {
 		'eslint:recommended',
 		'plugin:@typescript-eslint/recommended',
 	],
+	"overrides": [
+		{
+			"files": [ "./src/**/*.ts", "./src/**/*.tsx" ],
+			"rules": { "@typescript-eslint/explicit-function-return-type": "off" }
+		}
+	],
 	"parserOptions": {
 		"ecmaFeatures": {
 			"jsx": true,
@@ -27,6 +33,7 @@ module.exports = {
 	},
 
 	"rules": {
+		'@typescript-eslint/explicit-function-return-type': 0,
 		"object-curly-spacing": [2, "always"],
 		"react/jsx-uses-vars": 2,
 		"camelcase": 0,

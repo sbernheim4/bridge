@@ -42,8 +42,9 @@ export function sendBid(bids: Bid[], sessionId: string): void {
 	});
 }
 
-export function receiveBid() {
-
-	return true;
+export function receiveBid(sessionId: string) {
+	return function (updatedBidsHandler: (a: firebase.database.DataSnapshot, b?: string | null | undefined) => any) {
+		firebase.database().ref(sessionId).on('value', updatedBidsHandler);
+	}
 
 }
