@@ -17,7 +17,15 @@ import { BiddingSystem } from './../BiddingSystem/BiddingSystem';
 
 function Routes(): JSX.Element {
 
-	const id = uuidv4();
+	const getGameId = () => {
+		try {
+			return window.location.href.split('?')[1].split('=')[1]
+		} catch(err) {
+			return uuidv4();
+		}
+	}
+
+	const id = getGameId();
 
 	return (
 		<div>
