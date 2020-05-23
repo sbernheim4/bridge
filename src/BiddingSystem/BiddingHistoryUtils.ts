@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { receiveBid } from './../Firebase/';
 import { Bid, NullableBid } from './types/biddingTypes'
+import { compose } from './../global-utils';
 
 function getAllBids(): Bid[] {
 	const pass: Bid = { suitIndex: 100, level: 100 };
@@ -123,6 +124,18 @@ function pureArrayReversse(arr: any[]) {
 	return copy.reverse();
 }
 
+function determineRemainingBids(currentBids: Bid[]) {
+	if (containsThreeConsecutivePasses(currentBids)) {
+		return [];
+	} else {
+		const mostRecentSuitedBid = pureArrayReversse(currentBids).find(bid => bid.level < 99);
+		const mostRecentBid: NullableBid = mostRecentSuitedBid || null;
+		const remainingBids = getValidBids(mostRecentBid);
+
+		return remainingBids;
+	}
+}
+
 // Custom useEffect hook
 export const useSyncBidsWithDB = (
 	sessionId: string,
@@ -136,21 +149,11 @@ export const useSyncBidsWithDB = (
 		updateBidsFromServer(sessionId, setRecordedBids);
 	}, [sessionId])
 
+	const storeRemainingBids = compose(setRemainingBids, determineRemainingBids);
+
 	useEffect(() => {
 
-		if (containsThreeConsecutivePasses(recordedBids)) {
-
-			setRemainingBids([]);
-
-		} else {
-
-			const mostRecentSuitedBid = pureArrayReversse(recordedBids).find(bid => bid.level < 99);
-			const mostRecentBid: NullableBid = mostRecentSuitedBid || null;
-			const remainingBids = getValidBids(mostRecentBid);
-
-			setRemainingBids(remainingBids)
-
-		}
+		storeRemainingBids(recordedBids)
 
 	}, [recordedBids])
 
