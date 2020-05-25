@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// eslint-disable-next-line @typescript-eslint/ban-types
+
 export function compose(...funcs: Function[]) {
     const newFuncs = funcs.reverse();
 
@@ -10,9 +13,6 @@ export function compose(...funcs: Function[]) {
         }
     }
 
-	// eslint-disable-next-line
-	// @ts-ignore
-	// eslint-disable-next-line
     return function(...args: any[]) {
         let index = 0
         let result = length ? newFuncs[index].apply(this, args) : args[0]

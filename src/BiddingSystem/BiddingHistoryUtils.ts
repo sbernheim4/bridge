@@ -3,7 +3,7 @@ import { receiveBid } from './../Firebase/';
 import { Bid, NullableBid } from './types/biddingTypes'
 import { compose } from './../global-utils';
 
-function getAllBids(): Bid[] {
+function getAllBids() {
 	const pass: Bid = { suitIndex: 100, level: 100 };
 	const double: Bid = { suitIndex: 99, level: 99 };
 
@@ -27,7 +27,7 @@ function getAllBids(): Bid[] {
 	return allBids.concat(double, pass);
 }
 
-export function getValidBids(mostRecentBid: NullableBid): Bid[] {
+export function getValidBids(mostRecentBid: NullableBid) {
 	const allBids = getAllBids();
 
 	if (mostRecentBid === null) {
@@ -78,7 +78,7 @@ export function getValidBids(mostRecentBid: NullableBid): Bid[] {
 
 }
 
-export function containsThreeConsecutivePasses(bids: Bid[]): boolean {
+export function containsThreeConsecutivePasses(bids: Bid[]) {
 
 	if (bids.length > 3) {
 
