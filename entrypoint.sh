@@ -3,4 +3,4 @@ cd /usr/workdir
 
 npm install
 
-npm run server
+npm start
