@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { receiveBid } from './../Firebase/';
 import { Bid, NullableBid } from './types/biddingTypes'
 import { compose } from './../global-utils';
@@ -97,7 +97,7 @@ export function containsThreeConsecutivePasses(bids: Bid[]) {
 
 }
 
-function updateBidsFromServer(sessionId: string, setRecoredBids: (newBids: Bid[]) => void) {
+export function updateBidsFromServer(sessionId: string, setRecoredBids: (newBids: Bid[]) => void) {
 
 	const bidReceiver = receiveBid(sessionId);
 
@@ -124,7 +124,7 @@ function pureArrayReversse(arr: any[]) {
 	return copy.reverse();
 }
 
-function determineRemainingBids(currentBids: Bid[]) {
+export function determineRemainingBids(currentBids: Bid[]) {
 	if (containsThreeConsecutivePasses(currentBids)) {
 		return [];
 	} else {
@@ -139,9 +139,15 @@ function determineRemainingBids(currentBids: Bid[]) {
 // Custom useEffect hook
 export const useSyncBidsWithDB = (
 	sessionId: string,
-	recordedBids: Bid[],
-	setRecordedBids: (newBids: Bid[]) => void,
-	setRemainingBids: (currentBids: Bid[]) => void
+	{
+		setRecordedBids,
+		recordedBids,
+		setRemainingBids,
+	}: {
+		setRecordedBids: (newBids: Bid[]) => void,
+		recordedBids: Bid[],
+		setRemainingBids: (currentBids: Bid[]) => void
+	}
 ) => {
 
 	useEffect(() => {
@@ -158,3 +164,17 @@ export const useSyncBidsWithDB = (
 	}, [recordedBids])
 
 }
+
+export function useBiddingInfo(currentBid: NullableBid, previousBids: Bid[]) {
+
+	const validBids = getValidBids(currentBid);
+
+	const [remainingBids, setRemainingBids] = useState(validBids);
+	const [recordedBids, setRecordedBids] = useState(previousBids || []);
+
+	return {
+		remainingBids, setRemainingBids,
+		recordedBids, setRecordedBids
+	};
+}
+

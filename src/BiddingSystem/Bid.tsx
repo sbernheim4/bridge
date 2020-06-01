@@ -7,9 +7,7 @@ import './scss/bid.scss';
 export function BidView(props: BidViewProps): JSX.Element {
 
 	function handleClick(): void {
-		console.log('clicked on', props.bid);
-
-		props.placeNewBid(props.bid);
+		props.placeBid(props.bid);
 	}
 
 	function getDisplayableBid(bid: Bid | undefined): string {

@@ -11,7 +11,7 @@ export type DisplayBid = {
 export type NullableBid = Bid | null;
 
 export type BidViewProps = {
-	placeNewBid: (bid: Bid) => void;
+	placeBid: (bid: Bid) => void;
 	bid: Bid;
 }
 
@@ -22,11 +22,11 @@ export type BiddingSystemProps = {
 }
 
 export type AvailableBidsProps = {
+    recordedBids: Bid[];
+    sessionId: string;
 	validBids: Bid[];
-	placeNewBid(bid: Bid): void;
 }
 
 export type BiddingHistoryProps = {
-    positions: string[];
     previousBids: Bid[];
 }

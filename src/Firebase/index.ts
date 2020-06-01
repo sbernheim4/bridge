@@ -29,6 +29,8 @@ function connectToGame(sessionId: string): void {
 	})
 }
 
+// This function should really just appennd a single bid to the bids array rather than replace the whole array.
+// Bids are monoids.
 export function sendBid(bids: Bid[], sessionId: string): void {
 	firebase.database().ref(`${sessionId}`).set({
 		bids: bids

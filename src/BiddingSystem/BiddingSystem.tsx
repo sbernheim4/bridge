@@ -1,44 +1,31 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { BiddingHistory } from './BiddingHistory';
 import { AvailableBids } from './AvailableBids';
-import {
-	getValidBids,
-	useSyncBidsWithDB,
-	containsThreeConsecutivePasses
-} from './BiddingHistoryUtils';
-import { sendBid } from './../Firebase/';
-import { Bid, BiddingSystemProps } from './types/biddingTypes'
+import { useSyncBidsWithDB, useBiddingInfo } from './BiddingHistoryUtils';
+import { BiddingSystemProps } from './types/biddingTypes'
 
 import './scss/biddingSystem.scss';
 
-export function BiddingSystem(props: BiddingSystemProps): JSX.Element {
+export function BiddingSystem(props: BiddingSystemProps) {
 
-	const [remainingBids, setRemainingBids] = useState(getValidBids(props.currentBid));
-	const [recordedBids, setRecordedBids] = useState(props.previousBids || []);
-	const positions = ['North', 'East', 'South', 'West'];
+	const bidTrackingInfo = useBiddingInfo(props.currentBid, props.previousBids);
+	const { remainingBids, recordedBids, } = bidTrackingInfo;
 
-	// Custom useEffect hook
-	useSyncBidsWithDB(
-		props.sessionId,
-		recordedBids,
-		setRecordedBids,
-		setRemainingBids
-	);
-
-	function placeNewBid(bid: Bid) {
-		const updatedPreviousBidsArray = [...recordedBids, bid];
-
-		if (!containsThreeConsecutivePasses(recordedBids)) {
-			sendBid(updatedPreviousBidsArray, props.sessionId)
-		}
-	}
+	useSyncBidsWithDB(props.sessionId, bidTrackingInfo);
 
 	return (
 		<div className='bidding-system'>
 
-			<BiddingHistory positions={positions} previousBids={recordedBids} />
-			<AvailableBids validBids={remainingBids} placeNewBid={placeNewBid} />
+			<BiddingHistory
+				previousBids={recordedBids}
+			/>
+
+			<AvailableBids
+				sessionId={props.sessionId}
+				recordedBids={recordedBids}
+				validBids={remainingBids}
+			/>
 
 		</div>
 	);
