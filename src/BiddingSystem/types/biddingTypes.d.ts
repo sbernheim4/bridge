@@ -24,7 +24,6 @@ export type BiddingSystemProps = {
 export type AvailableBidsProps = {
     recordedBids: Bid[];
     sessionId: string;
-	validBids: Bid[];
 }
 
 export type BiddingHistoryProps = {

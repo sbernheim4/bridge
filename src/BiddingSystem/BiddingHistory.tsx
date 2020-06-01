@@ -4,7 +4,7 @@ import { Bid, BiddingHistoryProps } from './types/biddingTypes';
 
 export function BiddingHistory(props: BiddingHistoryProps) {
 
-	const positions = ['North', 'East', 'South', 'West'];
+	const playerPositions = ['North', 'East', 'South', 'West'];
 	const { previousBids } = props;
 
 	function stringifyBid(bid: Bid | undefined) {
@@ -47,13 +47,14 @@ export function BiddingHistory(props: BiddingHistoryProps) {
 			<h3 className='bidding-system__history-header'>Bids ({stringifyBid(getMostRecentSuitBid(previousBids))})</h3>
 			<div className='bidding-system__bidding-history'>
 
-				{positions.map((position, index) =>
+				{playerPositions.map((position, index) =>
 					<p className='bidding-system__bidding-history--header' key={index}>{position}</p>
 				)}
 
 				{previousBids.map((bid, index) => {
 					return <p key={index}>{stringifyBid(bid)}</p>
 				})}
+
 			</div>
 		</>
 	);

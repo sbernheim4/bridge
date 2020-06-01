@@ -1,18 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { BiddingHistory } from './BiddingHistory';
 import { AvailableBids } from './AvailableBids';
-import { useSyncBidsWithDB, useBiddingInfo } from './BiddingHistoryUtils';
+import { updateBidsFromServer } from './BiddingHistoryUtils';
 import { BiddingSystemProps } from './types/biddingTypes'
 
 import './scss/biddingSystem.scss';
 
 export function BiddingSystem(props: BiddingSystemProps) {
 
-	const bidTrackingInfo = useBiddingInfo(props.currentBid, props.previousBids);
-	const { remainingBids, recordedBids, } = bidTrackingInfo;
+	const [recordedBids, setRecordedBids] = useState(props.previousBids || []);
 
-	useSyncBidsWithDB(props.sessionId, bidTrackingInfo);
+	useEffect(() => {
+		// Connect to firebase DB and register event handlers
+		updateBidsFromServer(props.sessionId, setRecordedBids);
+	}, [props.sessionId])
 
 	return (
 		<div className='bidding-system'>
@@ -24,7 +26,6 @@ export function BiddingSystem(props: BiddingSystemProps) {
 			<AvailableBids
 				sessionId={props.sessionId}
 				recordedBids={recordedBids}
-				validBids={remainingBids}
 			/>
 
 		</div>

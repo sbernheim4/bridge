@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { receiveBid } from './../Firebase/';
 import { Bid, NullableBid } from './types/biddingTypes'
 import { compose } from './../global-utils';
@@ -135,46 +134,3 @@ export function determineRemainingBids(currentBids: Bid[]) {
 		return remainingBids;
 	}
 }
-
-// Custom useEffect hook
-export const useSyncBidsWithDB = (
-	sessionId: string,
-	{
-		setRecordedBids,
-		recordedBids,
-		setRemainingBids,
-	}: {
-		setRecordedBids: (newBids: Bid[]) => void,
-		recordedBids: Bid[],
-		setRemainingBids: (currentBids: Bid[]) => void
-	}
-) => {
-
-	useEffect(() => {
-		// Connect to firebase DB and register event handlers
-		updateBidsFromServer(sessionId, setRecordedBids);
-	}, [sessionId])
-
-	const storeRemainingBids = compose(setRemainingBids, determineRemainingBids);
-
-	useEffect(() => {
-
-		storeRemainingBids(recordedBids)
-
-	}, [recordedBids])
-
-}
-
-export function useBiddingInfo(currentBid: NullableBid, previousBids: Bid[]) {
-
-	const validBids = getValidBids(currentBid);
-
-	const [remainingBids, setRemainingBids] = useState(validBids);
-	const [recordedBids, setRecordedBids] = useState(previousBids || []);
-
-	return {
-		remainingBids, setRemainingBids,
-		recordedBids, setRecordedBids
-	};
-}
-
