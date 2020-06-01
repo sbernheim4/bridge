@@ -1,4 +1,5 @@
 import firebase from "firebase/app";
+import "firebase/database";
 import dotenv from 'dotenv';
 
 dotenv.config();
