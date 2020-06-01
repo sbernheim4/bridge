@@ -4,9 +4,9 @@ import { Card } from './card.d';
 
 import './scss/card.scss';
 
-export function CardElement (props: { card: Card }): JSX.Element {
+export function CardElement (props: { card: Card }) {
 
-	function getDisplayValue(value: string): string {
+	function getDisplayValue(value: string) {
 		switch (value) {
 			case '11':
 				return 'J';
@@ -21,7 +21,7 @@ export function CardElement (props: { card: Card }): JSX.Element {
 		}
 	}
 
-	function playCard(): void {
+	function playCard() {
 		console.log(props.card);
 	}
 

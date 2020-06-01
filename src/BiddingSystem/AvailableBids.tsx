@@ -5,7 +5,7 @@ import { containsThreeConsecutivePasses } from './BiddingHistoryUtils';
 import { BidView } from './Bid';
 import { Bid, AvailableBidsProps } from './types/biddingTypes'
 
-export function AvailableBids(props: AvailableBidsProps): JSX.Element {
+export function AvailableBids(props: AvailableBidsProps) {
 
 	function placeBid(bid: Bid) {
 		const updatedPreviousBidsArray = [...props.recordedBids, bid];

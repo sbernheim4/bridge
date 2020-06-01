@@ -5,10 +5,10 @@ import { Card } from './card.d';
 
 import './scss/cardContainer.scss';
 
-export function CardContainer(props: { cards: Card[] }): JSX.Element {
+export function CardContainer(props: { cards: Card[] }) {
 	const { cards } = props;
 
-	function sortCards(cardOne: Card, cardTwo: Card): number {
+	function sortCards(cardOne: Card, cardTwo: Card) {
 		// Same suit, sort by value
 		if (cardOne.suit === cardTwo.suit) {
 			return parseInt(cardTwo.value) - parseInt(cardOne.value);

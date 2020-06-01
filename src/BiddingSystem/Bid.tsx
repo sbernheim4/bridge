@@ -4,13 +4,9 @@ import { Bid, BidViewProps } from './types/biddingTypes';
 
 import './scss/bid.scss';
 
-export function BidView(props: BidViewProps): JSX.Element {
+export function BidView(props: BidViewProps) {
 
-	function handleClick(): void {
-		props.placeBid(props.bid);
-	}
-
-	function getDisplayableBid(bid: Bid | undefined): string {
+	function getDisplayableBid(bid: Bid | undefined) {
 
 		if (!bid) {
 			return '';
@@ -35,7 +31,12 @@ export function BidView(props: BidViewProps): JSX.Element {
 
 	return (
 		<div className='bid'>
-			<p className='bid__info' onClick={handleClick}>{getDisplayableBid(props.bid)}</p>
+			<p
+				className='bid__info'
+				onClick={() => props.placeBid(props.bid)}
+			>
+				{getDisplayableBid(props.bid)}
+			</p>
 		</div>
 	)
 

@@ -39,7 +39,7 @@ export function getValidBids(mostRecentBid: NullableBid) {
 		level: previousLevel
 	} = mostRecentBid;
 
-	function filterValidBids(currentBid: Bid): boolean {
+	function filterValidBids(currentBid: Bid) {
 
 		const {
 			suitIndex: newSuitIndex,

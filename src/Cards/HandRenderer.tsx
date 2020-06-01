@@ -3,9 +3,9 @@ import React from 'react';
 import { Card } from './card.d';
 import { CardContainer } from './CardContainer';
 
-export function HandRenderer(): JSX.Element {
+export function HandRenderer() {
 
-	function generateDeckOfCards(): Card[] {
+	function generateDeckOfCards() {
 		const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14']
 		const suits = ['Spades', 'Hearts', 'Diamonds', 'Clubs'];
 		const deckOfCards: Card[] = [];
@@ -54,7 +54,7 @@ export function HandRenderer(): JSX.Element {
 
 	}
 
-	function generateAllHands(): Card[][] {
+	function generateAllHands() {
 
 		const deckOfCards = generateDeckOfCards();
 		const hands = generateHand(deckOfCards);
@@ -63,7 +63,7 @@ export function HandRenderer(): JSX.Element {
 
 	}
 
-	const hands: Card[][] = generateAllHands();
+	const hands = generateAllHands();
 
 	return (
 		<div>

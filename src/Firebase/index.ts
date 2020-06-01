@@ -1,5 +1,4 @@
 import firebase from "firebase/app";
-
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -20,25 +19,16 @@ const config = {
 
 firebase.initializeApp(config);
 
-const db = firebase.database();
-const ref = db.ref();
-
-function connectToGame(sessionId: string): void {
-	firebase.database().ref(sessionId).set({
-		numPlayers: 1
-	})
-}
-
 // This function should really just appennd a single bid to the bids array rather than replace the whole array.
 // Bids are monoids.
-export function sendBid(bids: Bid[], sessionId: string): void {
+export function sendBid(bids: Bid[], sessionId: string) {
 	firebase.database().ref(`${sessionId}`).set({
 		bids: bids
 	});
 }
 
 export function receiveBid(sessionId: string) {
-	return function (updatedBidsHandler: (a: firebase.database.DataSnapshot, b?: string | null | undefined) => any) {
+	return function (updatedBidsHandler: (a: firebase.database.DataSnapshot, b?: string | null | undefined) => void) {
 		firebase.database().ref(sessionId).on('value', updatedBidsHandler);
 	}
 

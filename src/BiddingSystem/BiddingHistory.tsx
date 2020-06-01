@@ -2,12 +2,12 @@ import React from 'react';
 
 import { Bid, BiddingHistoryProps } from './types/biddingTypes';
 
-export function BiddingHistory(props: BiddingHistoryProps): JSX.Element {
+export function BiddingHistory(props: BiddingHistoryProps) {
 
 	const positions = ['North', 'East', 'South', 'West'];
 	const { previousBids } = props;
 
-	function stringifyBid(bid: Bid | undefined): string {
+	function stringifyBid(bid: Bid | undefined) {
 
 		if (!bid) {
 			return '';
