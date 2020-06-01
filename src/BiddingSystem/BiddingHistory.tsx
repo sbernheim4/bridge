@@ -1,13 +1,14 @@
 import React from 'react';
 
 import { Bid, BiddingHistoryProps } from './types/biddingTypes';
+import { compose } from './../../src/global-utils';
 
 export function BiddingHistory(props: BiddingHistoryProps) {
 
 	const playerPositions = ['North', 'East', 'South', 'West'];
 	const { previousBids } = props;
 
-	function stringifyBid(bid: Bid | undefined) {
+	const stringifyBid = (bid: Bid | undefined) => {
 
 		if (!bid) {
 			return '';
@@ -36,15 +37,19 @@ export function BiddingHistory(props: BiddingHistoryProps) {
 		}
 	}
 
-	function getMostRecentSuitBid(stackOfBids: Bid[]) {
+	const getMostRecentSuittedBid = (stackOfBids: Bid[]) => {
 		return [...stackOfBids]
 			.reverse()
 			.find(bid => bid.level < 99);
 	}
 
+	const getDisplayableCurrentBid = compose(stringifyBid, getMostRecentSuittedBid);
+
+	const currentBid = getDisplayableCurrentBid(previousBids);
+
 	return (
 		<>
-			<h3 className='bidding-system__history-header'>Bids ({stringifyBid(getMostRecentSuitBid(previousBids))})</h3>
+			<h3 className='bidding-system__history-header'>Bids ({currentBid})</h3>
 			<div className='bidding-system__bidding-history'>
 
 				{playerPositions.map((position, index) =>
