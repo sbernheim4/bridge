@@ -17,7 +17,6 @@ const config = {
 	measurementId: process.env.measurementId,
 };
 
-
 firebase.initializeApp(config);
 
 // This function should really just appennd a single bid to the bids array rather than replace the whole array.
@@ -34,3 +33,4 @@ export function receiveBid(sessionId: string) {
 	}
 
 }
+
