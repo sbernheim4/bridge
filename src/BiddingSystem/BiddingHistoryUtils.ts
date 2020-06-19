@@ -105,7 +105,7 @@ export function updateBidsFromServer(sessionId: string, setRecoredBids: (newBids
 
 		if (childSnapshot.val() && childSnapshot.val().bids) {
 
-			const updatedBids = childSnapshot.val().bids;
+			const updatedBids = childSnapshot.val().bids as Bid[];
 
 			setRecoredBids(updatedBids);
 
