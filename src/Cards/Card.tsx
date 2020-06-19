@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { Card } from './types';
+import { CardElementProps } from './types';
 
 import './scss/card.scss';
 
-export function CardElement (props: { card: Card }) {
+export function CardElement (props: CardElementProps) {
 
 	function getDisplayValue(value: string) {
 		switch (value) {
