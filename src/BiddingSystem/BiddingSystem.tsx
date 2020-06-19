@@ -13,7 +13,7 @@ import { HandContainer } from './../Cards/HandContainer';
 export function BiddingSystem(props: BiddingSystemProps) {
 
 	const [recordedBids, setRecordedBids] = useState(props.previousBids || []);
-	const [hand, setHand] = useState([] as Card[][]);
+	const [hand, setHand] = useState([[]] as Card[][]);
 
 	useEffect(() => {
 		// Connect to firebase DB and register event handlers
