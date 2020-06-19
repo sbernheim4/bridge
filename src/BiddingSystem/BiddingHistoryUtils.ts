@@ -1,14 +1,15 @@
 import { receiveBid } from './../Firebase/';
 import { Bid, NullableBid } from './types/biddingTypes'
-import { compose } from './../global-utils';
+
+export const getSuits = (): ['No Trump', 'Spades', 'Hearts', 'Diamonds', 'Clubs'] => ['No Trump', 'Spades', 'Hearts', 'Diamonds', 'Clubs'];
 
 function getAllBids() {
 	const pass: Bid = { suitIndex: 100, level: 100 };
 	const double: Bid = { suitIndex: 99, level: 99 };
 
-	const suits = ['No Trump', 'Spades', 'Hearts', 'Diamonds', 'Clubs'];
 	const levels = [1, 2, 3, 4, 5, 6, 7];
 	const allBids: Bid[] = [];
+	const suits = getSuits();
 
 	for (const level of levels) {
 
@@ -133,4 +134,32 @@ export function determineRemainingBids(currentBids: Bid[]) {
 
 		return remainingBids;
 	}
+}
+
+export function stringifyBid(bid: Bid | undefined) {
+
+	if (!bid) {
+		return '';
+	}
+
+	const suits = getSuits();
+
+	switch(bid.level) {
+		case 99:
+			return 'Double';
+		case 100:
+			return 'Pass';
+		default: {
+			const suit = suits[bid.suitIndex];
+			const lastCharacterOfSuitName = suit.slice(-1);
+			const isLastCharacterS = lastCharacterOfSuitName === 's';
+
+			if (isLastCharacterS) {
+				return bid.level + ' ' + suit.slice(0, suit.length - 1)
+			} else {
+				return bid.level + ' ' + suit;
+			}
+		}
+	}
+
 }

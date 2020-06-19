@@ -1,41 +1,28 @@
 import React from 'react';
 
+import { sendBid } from './../Firebase/';
+import { containsThreeConsecutivePasses, stringifyBid } from './BiddingHistoryUtils';
 import { Bid, BidViewProps } from './types/biddingTypes';
 
 import './scss/bid.scss';
 
 export function BidView(props: BidViewProps) {
 
-	function getDisplayableBid(bid: Bid | undefined) {
+	function placeBid(bid: Bid) {
+		const updatedPreviousBidsArray = [...props.recordedBids, bid];
 
-		if (!bid) {
-			return '';
-		}
-
-		const suits = ['No Trump', 'Spades', 'Hearts', 'Diamonds', 'Clubs'];
-
-		if (bid.level === 99) {
-			return 'Double';
-		} else if (bid.level === 100) {
-			return 'Pass';
-		} else if (bid.level === 1 && suits[bid.suitIndex].slice(-1) === 's') {
-
-			const suit = suits[bid.suitIndex];
-
-			return `${bid.level} ${suit.slice(0, suit.length - 1)}`
-
+		if (!containsThreeConsecutivePasses(props.recordedBids)) {
+			sendBid(updatedPreviousBidsArray, props.sessionId)
 		} else {
-			return `${bid.level} ${suits[bid.suitIndex]}`
-		}
+			// Bidding is complete
+			// Redirect to the game
+        }
 	}
 
 	return (
 		<div className='bid'>
-			<p
-				className='bid__info'
-				onClick={() => props.placeBid(props.bid)}
-			>
-				{getDisplayableBid(props.bid)}
+			<p className='bid__info' onClick={() => placeBid(props.bid)}>
+				{stringifyBid(props.bid)}
 			</p>
 		</div>
 	)

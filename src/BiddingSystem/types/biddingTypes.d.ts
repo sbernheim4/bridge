@@ -11,7 +11,8 @@ export type DisplayBid = {
 export type NullableBid = Bid | null;
 
 export type BidViewProps = {
-	placeBid: (bid: Bid) => void;
+	recordedBids: Bid[];
+	sessionId: string;
 	bid: Bid;
 }
 

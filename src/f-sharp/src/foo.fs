@@ -14,17 +14,14 @@ let someFun suit lvl =
   result
 
 let getAllBids =
-    let pass = { suitIndex = 100; level = 100 }
-    let double = { suitIndex = 99; level = 99 }
+    let mutable bids = [{ suitIndex = 100; level = 100 }; { suitIndex = 99; level = 99 }]
 
-    let suits = [0 .. 4]
-    let levels = [1 .. 7]
+    for levelIndex = 0 to 4 do
+        for suit = 1 to 7 do
+            let newBid = [{ level = levelIndex; suitIndex = suit }]
+            bids <- List.append bids newBid
 
-    let allSuitedBids = List.reduce2 someFun suits levels
-    // let allBids = allSuitedBids + double + pass
-    allSuitedBids
-
+    bids
 
 let result = getAllBids
-
-printfn "%A" getAllBids
+printfn "%A" getAllBid
