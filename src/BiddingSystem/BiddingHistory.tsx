@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Bid, BiddingHistoryProps } from './types/biddingTypes';
 import { compose } from './../../src/global-utils';
-import { getSuits, stringifyBid } from './BiddingHistoryUtils';
+import { stringifyBid } from './BiddingHistoryUtils';
 
 export function BiddingHistory(props: BiddingHistoryProps) {
 
