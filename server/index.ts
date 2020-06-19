@@ -37,7 +37,7 @@ if (process.env.DB_URI) {
 
 	// Use mongo for session store
 	const sessionStore = MongoStore(session)
-	// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 	// @ts-ignore
 	sessionInfo['store'] = new sessionStore({ mongooseConnection: mongoose.connection });
 }
@@ -55,7 +55,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 /****************** Serve Static Files --> JS, CSS, IMAGES ETC ******************/
-console.log(path.resolve('public'));
 app.use(express.static(path.resolve('public'), { maxAge: cacheTime } ));
 
 
