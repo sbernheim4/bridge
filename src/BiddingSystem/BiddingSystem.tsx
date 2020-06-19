@@ -26,10 +26,12 @@ export function BiddingSystem(props: BiddingSystemProps) {
 			const payload = {
 				sessionId: props.sessionId
 			};
+
+			// TODO: API or firebase directly?
 			const url = '/api/getHand'
 
 			const fetchRequest = {
-				method: '',
+				method: 'GET',
 				headers: new Headers({
 					'Content-Type': 'application/json',
 				}),
