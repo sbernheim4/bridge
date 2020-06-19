@@ -1,56 +1,32 @@
 import React, { useState, useEffect } from 'react';
 
 import { BiddingHistory } from './BiddingHistory';
-import { AvailableBids } from './AvailableBids';
 import { updateBidsFromServer } from './BiddingHistoryUtils';
+import { AvailableBids } from './AvailableBids';
 import { BiddingSystemProps } from './types/biddingTypes'
-import { Card } from './../Cards/card.d';
+
+import { HandContainer } from './../Cards/HandContainer';
+import { generateAllHands } from './../Cards/utils';
+/* import { Card } from './../Cards/card.d'; */
+/* import { request } from './../global-utils'; */
 
 import './scss/biddingSystem.scss';
-import { request } from './../global-utils';
-import { HandContainer } from './../Cards/HandContainer';
 
 export function BiddingSystem(props: BiddingSystemProps) {
 
+	const initialHand = generateAllHands()[0];
 	const [recordedBids, setRecordedBids] = useState(props.previousBids || []);
-	const [hand, setHand] = useState([[]] as Card[][]);
+	const [hand] = useState(initialHand);
 
 	useEffect(() => {
 		// Connect to firebase DB and register event handlers
 		updateBidsFromServer(props.sessionId, setRecordedBids);
 	}, [props.sessionId])
 
-	useEffect(() => {
-
-		async function getHands() {
-			const payload = {
-				sessionId: props.sessionId
-			};
-
-			// TODO: API or firebase directly?
-			const url = '/api/getHand'
-
-			const fetchRequest = {
-				method: 'GET',
-				headers: new Headers({
-					'Content-Type': 'application/json',
-				}),
-				body: JSON.stringify(payload)
-			};
-
-			const res = await request<Card[][]>(url, fetchRequest);
-
-			setHand(res);
-		}
-
-		getHands();
-
-	}, [props.sessionId])
-
 	return (
 		<div className='bidding-system'>
 			<HandContainer
-				cards={hand[0]}
+				cards={hand}
 			/>
 
 			<BiddingHistory

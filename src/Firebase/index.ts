@@ -31,6 +31,4 @@ export function receiveBid(sessionId: string) {
 	return function (updatedBidsHandler: (a: firebase.database.DataSnapshot, b?: string | null | undefined) => void) {
 		firebase.database().ref(sessionId).on('value', updatedBidsHandler);
 	}
-
 }
-
