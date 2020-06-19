@@ -68,7 +68,7 @@ export function getValidBids(mostRecentBid: NullableBid) {
 
 	}
 
-	const availableBids = allBids.filter(newBid => filterValidBids(newBid));
+	const availableBids = allBids.filter(filterValidBids);
 
 	return availableBids
 		.sort((bidOne, bidTwo) => {
