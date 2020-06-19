@@ -27,7 +27,7 @@ function Routes() {
 
 				<Route exact path='/' render={() => <Home id={id}/>}/>
 
-				<Route exact path='/play' render={() =>
+				<Route exact path='/bid' render={() =>
 					<BiddingSystem
 							currentBid={null}
 							previousBids={[]}

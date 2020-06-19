@@ -6,7 +6,7 @@ import './home.scss';
 
 function Home(props: { id: string }): JSX.Element {
 
-	const link = '/play?id=' + props.id;
+	const link = '/bid?id=' + props.id;
 
 	return (
 		<div className="home">
