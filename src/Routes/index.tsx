@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { Home, ErrorPage } from './LazyLoadRoutes';
 import Navbar from './../Navbar/Navbar';
 import { BiddingSystem } from './../BiddingSystem/BiddingSystem';
+import { GamePlay } from './../GamePlay/GamePlay';
 
 function Routes() {
 
@@ -29,12 +30,18 @@ function Routes() {
 
 				<Route exact path='/bid' render={() =>
 					<BiddingSystem
-							currentBid={null}
-							previousBids={[]}
-							sessionId={id}
-						/>
-					}
-				/>
+						currentBid={null}
+						previousBids={[]}
+						sessionId={id}
+					/>
+				}/>
+
+				<Route exact path='/play' render={() =>
+					<GamePlay
+						sessionId={id}
+					/>
+
+				}/>
 
 				<Route component={ErrorPage}/> {/* This route is run when no matches are found - It's your 404 fallbback */}
 

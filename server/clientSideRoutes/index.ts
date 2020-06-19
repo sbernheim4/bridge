@@ -9,7 +9,7 @@ const router = Router();
 
 const routes = [
 	'/',
-	'/subpage',
+	'/bid',
 	'/play',
 ];
 

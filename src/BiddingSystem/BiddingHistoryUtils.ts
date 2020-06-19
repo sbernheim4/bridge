@@ -84,7 +84,7 @@ export function containsThreeConsecutivePasses(bids: Bid[]) {
 
 		const mostRecentThreeBids = bids.slice(-3);
 		const hasThreeConsecutivePasses = mostRecentThreeBids.reduce((acc, current) => {
-			return acc && current.level === 100;
+			return current.level === 100 && acc;
 		}, true)
 
 		return hasThreeConsecutivePasses;
