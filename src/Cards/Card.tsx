@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import { Card } from './card.d';
+import { Card } from './types';
 
 import './scss/card.scss';
 

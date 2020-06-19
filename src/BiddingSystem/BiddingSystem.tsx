@@ -7,7 +7,7 @@ import { BiddingSystemProps } from './types/biddingTypes'
 
 import { HandContainer } from './../Cards/HandContainer';
 import { generateAllHands } from './../Cards/utils';
-/* import { Card } from './../Cards/card.d'; */
+/* import { Card } from './../Cards/types';
 /* import { request } from './../global-utils'; */
 
 import './scss/biddingSystem.scss';
