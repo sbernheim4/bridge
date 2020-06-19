@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Card } from './card.d';
-import { CardContainer } from './CardContainer';
+import { Card } from './card';
+import { HandContainer } from './HandContainer';
 
 export function HandRenderer() {
 
@@ -63,11 +63,13 @@ export function HandRenderer() {
 
 	}
 
-	const hands = generateAllHands();
+	const allHands = generateAllHands();
 
 	return (
 		<div>
-			{hands.map((hand, index) => <CardContainer key={index} cards={hand}/>)}
+			{
+				allHands.map((hand, index) => <HandContainer key={index} cards={hand}/>)
+			}
 		</div>
 	)
 

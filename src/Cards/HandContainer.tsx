@@ -5,7 +5,7 @@ import { Card } from './card.d';
 
 import './scss/cardContainer.scss';
 
-export function CardContainer(props: { cards: Card[] }) {
+export function HandContainer(props: { cards: Card[] }) {
 	const { cards } = props;
 
 	function sortCards(cardOne: Card, cardTwo: Card) {
@@ -65,6 +65,7 @@ export function CardContainer(props: { cards: Card[] }) {
 	return (
 		<div className='card-container'>
 			<h4>You have <span>{highCardPoints}</span> HCP</h4>
+
 			<div className='card-container__hand'>
 				{cardsSplitBySuit.map((subCards, index) => {
 					return (
@@ -76,6 +77,7 @@ export function CardContainer(props: { cards: Card[] }) {
 						</div>
 					)
 				})}
+
 			</div>
 		</div>
 	)
