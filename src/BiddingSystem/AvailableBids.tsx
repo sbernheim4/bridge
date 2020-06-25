@@ -2,7 +2,7 @@ import React from 'react';
 
 import { determineRemainingBids } from './BiddingHistoryUtils';
 import { BidView } from './Bid';
-import { AvailableBidsProps } from './types/biddingTypes'
+import { AvailableBidsProps } from './types/biddingTypes.d'
 
 export function AvailableBids(props: AvailableBidsProps) {
 
